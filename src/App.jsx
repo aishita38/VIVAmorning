@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import vivaLogo from './assets/viva-logo.png'
@@ -64,9 +64,9 @@ const CulturalCouncilCard = ({ imageUrl }) => {
   )
 }
 
-const PageSection = ({ theme, bannerImage, bannerAlt, children, showHeader, vogueHands }) => {
+const PageSection = ({ theme, bannerImage, bannerAlt, children, showHeader, vogueHands, sectionRef }) => {
   return (
-    <section className={`w-full min-h-screen flex flex-col items-center px-4 md:px-16 pb-16 relative overflow-hidden ${theme}`}>
+    <section ref={sectionRef} className={`w-full min-h-screen flex flex-col items-center px-4 md:px-16 pb-16 relative z-10 overflow-hidden ${theme}`}>
       {/* Absolute decorations (Hands) go here to ignore section padding */}
       {vogueHands}
 
@@ -101,7 +101,123 @@ function App() {
   const vogue1Ref = useRef(null)
   const vogue2Ref = useRef(null)
 
-  useEffect(() => {
+  // Refs for sections to trigger background changes
+  const section1Ref = useRef(null)
+  const section2Ref = useRef(null)
+  const section3Ref = useRef(null)
+
+  // Refs for background layers
+  const bgOrangeRef = useRef(null)
+  const bgBlueRef = useRef(null)
+  const bgPurpleRef = useRef(null)
+
+  // Refs for animations
+  const lanternLeftRef = useRef(null)
+  const lanternRightRef = useRef(null)
+
+  useLayoutEffect(() => {
+    // 1. Hands Exit Animation (Scroll-linked)
+    // Moves hands down and slightly out as user scrolls through Section 1
+    if (vogue1Ref.current && vogue2Ref.current && section1Ref.current) {
+      gsap.to(vogue1Ref.current, {
+        yPercent: 100, // Move down 100%
+        xPercent: -20, // Move left slightly
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section1Ref.current,
+          start: "top top",
+          end: "bottom center", // Animation completes when center of S1 hits bottom
+          scrub: 0.5, // Smooth scrubbing
+        }
+      });
+
+      gsap.to(vogue2Ref.current, {
+        yPercent: 100, // Move down 100%
+        xPercent: 20, // Move right slightly
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section1Ref.current,
+          start: "top top",
+          end: "bottom center",
+          scrub: 0.5,
+        }
+      });
+    }
+
+    // 2. Section 2 Entrance Animations (Lanterns & Banner)
+    // These animate IN automatically when we reach section 2
+    if (section2Ref.current) {
+      // Set initial state for lanterns
+      gsap.set([lanternLeftRef.current, lanternRightRef.current], { y: -300, opacity: 0 });
+
+      // Lanterns - Drop in automatically
+      gsap.to([lanternLeftRef.current, lanternRightRef.current], {
+        y: 0,
+        opacity: 1,
+        duration: 1.5,
+        stagger: 0.15, // Slight delay between them
+        ease: "bounce.out",
+        scrollTrigger: {
+          trigger: section2Ref.current,
+          start: "top 75%", // Start when top of S2 is 75% down viewport
+          toggleActions: "play none none reverse" // Play on enter, reverse on scroll back
+        }
+      });
+
+      // Fest Head Banner - Drop/Scale in automatically
+      const bannerElement = section2Ref.current.querySelector('.swing-banner');
+      if (bannerElement) {
+        gsap.set(bannerElement, { y: -200, opacity: 0, scale: 0.8 });
+
+        gsap.to(bannerElement, {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: "elastic.out(1, 0.5)",
+          scrollTrigger: {
+            trigger: section2Ref.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse" // Play on enter, reverse on leave
+          }
+        });
+      }
+    }
+
+    // 3. Background Transition Logic
+    // Create a timeline that crossfades backgrounds based on scroll position
+
+    // Initial State
+    gsap.set(bgOrangeRef.current, { opacity: 1, zIndex: 1 });
+    gsap.set(bgBlueRef.current, { opacity: 0, zIndex: 2 });
+    gsap.set(bgPurpleRef.current, { opacity: 0, zIndex: 3 });
+
+    // Transition: Orange -> Blue (Section 1 to Section 2)
+    ScrollTrigger.create({
+      trigger: section2Ref.current,
+      start: "top bottom", // Starts when top of S2 hits bottom of viewport
+      end: "center center", // Ends when center of S2 is in center
+      scrub: true,
+      onUpdate: (self) => {
+        // Fade in Blue over Orange
+        gsap.set(bgBlueRef.current, { opacity: self.progress });
+      }
+    });
+
+    // Transition: Blue -> Purple (Section 2 to Section 3)
+    ScrollTrigger.create({
+      trigger: section3Ref.current,
+      start: "top bottom",
+      end: "center center",
+      scrub: true,
+      onUpdate: (self) => {
+        // Fade in Purple over Blue
+        gsap.set(bgPurpleRef.current, { opacity: self.progress });
+      }
+    });
+
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
     }
@@ -109,16 +225,24 @@ function App() {
 
 
   return (
-    <main className="w-full">
+    <main className="w-full relative">
+      {/* FIXED BACKGROUND LAYERS - z-0 to sit above body bg but behind content */}
+      <div className="fixed inset-0 w-full h-full pointers-events-none z-0">
+        <div ref={bgOrangeRef} className="absolute inset-0 w-full h-full bg-gradient-orange transition-opacity duration-0" />
+        <div ref={bgBlueRef} className="absolute inset-0 w-full h-full bg-gradient-blue transition-opacity duration-0" />
+        <div ref={bgPurpleRef} className="absolute inset-0 w-full h-full bg-gradient-purple transition-opacity duration-0" />
+      </div>
+
       <PageSection
-        theme="orange-theme"
+        sectionRef={section1Ref}
+        theme="orange-theme" // CSS class now just handles non-bg styles if any
         bannerImage={mentorsBanner}
         bannerAlt="Our Mentors"
         showHeader={true}
         vogueHands={
           <>
-            <img ref={vogue1Ref} src={vogue1} className="vogue-img vogue-img-anim-left left-0 absolute bottom-0 h-[140px] md:h-[220px] lg:h-[260px] w-auto pointer-events-none z-50 transition-all" alt="" />
-            <img ref={vogue2Ref} src={vogue2} className="vogue-img vogue-img-anim-right right-0 absolute bottom-0 h-[140px] md:h-[220px] lg:h-[260px] w-auto pointer-events-none z-50 transition-all" alt="" />
+            <img ref={vogue1Ref} src={vogue1} className="vogue-img vogue-img-anim-left left-0 absolute bottom-0 h-[140px] md:h-[220px] lg:h-[260px] w-auto pointer-events-none z-50 transition-transform will-change-transform" alt="" />
+            <img ref={vogue2Ref} src={vogue2} className="vogue-img vogue-img-anim-right right-0 absolute bottom-0 h-[140px] md:h-[220px] lg:h-[260px] w-auto pointer-events-none z-50 transition-transform will-change-transform" alt="" />
           </>
         }
       >
@@ -131,15 +255,16 @@ function App() {
       </PageSection>
 
       <PageSection
+        sectionRef={section2Ref}
         theme="blue-theme"
         bannerImage={festheadBanner}
         bannerAlt="Fest Head"
         showHeader={false}
       >
         <div className="w-full max-w-[1400px] flex justify-between items-start -mt-[220px] relative pointer-events-none">
-          <img src={lantern} className="lantern-swing ml-8 md:ml-16 h-[280px] w-auto" alt="Lantern" />
-          <img src={lantern} className="lantern-swing mr-8 md:mr-16 h-[280px] w-auto [animation-delay:0.5s]" alt="Lantern" />
-        </div>    
+          <img ref={lanternLeftRef} src={lantern} className="lantern-swing ml-8 md:ml-16 h-[280px] w-auto" alt="Lantern" />
+          <img ref={lanternRightRef} src={lantern} className="lantern-swing mr-8 md:mr-16 h-[280px] w-auto [animation-delay:0.5s]" alt="Lantern" />
+        </div>
 
         <div className="flex gap-10 md:gap-20 justify-center items-start mt-8 md:mt-16 flex-wrap relative z-[2]">
           <PhotoCard
@@ -154,6 +279,7 @@ function App() {
       </PageSection>
 
       <PageSection
+        sectionRef={section3Ref}
         theme="purple-theme"
         bannerImage={culturalSign}
         bannerAlt="Cultural Council"

@@ -29,7 +29,7 @@
 }
 
 @layer components {
-  .orange-theme {
+  .bg-gradient-orange {
     background:
       radial-gradient(circle at center, transparent 0%, rgba(93, 42, 28, 0.08) 100%),
       repeating-conic-gradient(from 0deg at 50% 50%,
@@ -37,7 +37,7 @@
         var(--color-brand-orange-light) 15deg 30deg);
   }
 
-  .blue-theme {
+  .bg-gradient-blue {
     background:
       radial-gradient(circle at center, transparent 0%, rgba(0, 102, 204, 0.08) 100%),
       repeating-conic-gradient(from 0deg at 50% 50%,
@@ -45,12 +45,23 @@
         var(--color-brand-blue-light) 15deg 30deg);
   }
 
-  .purple-theme {
+  .bg-gradient-purple {
     background:
       radial-gradient(circle at center, transparent 0%, rgba(157, 100, 255, 0.1) 100%),
       repeating-conic-gradient(from 0deg at 50% 50%,
         #e2d1ff 0deg 10deg,
         var(--color-brand-purple-light) 10deg 20deg);
+  }
+
+  .orange-theme {
+    /* Background handled by fixed layer */
+  }
+
+  .blue-theme {
+    /* Background handled by fixed layer */
+  }
+
+  .purple-theme {
     box-shadow: inset 0 0 100px rgba(112, 71, 235, 0.1);
   }
 
@@ -121,3 +132,54 @@
     opacity: 1;
   }
 }
+
+/* ---------Stamp border ----------- */
+@layer utilities {
+  .stamp-border {
+    background-color: var(--color-v-cream);
+
+    border-radius: 109px;
+
+    background-image:
+      /* Top */
+      radial-gradient(ellipse 21.6px 16.5px,
+        var(--color-v-maroon) 90%,
+        transparent 91%),
+
+      /* Bottom */
+      radial-gradient(ellipse 21.6px 16.5px,
+        var(--color-v-maroon) 90%,
+        transparent 91%),
+
+      /* Left */
+      radial-gradient(ellipse 18.4px 19.3px,
+        var(--color-v-maroon) 90%,
+        transparent 91%),
+
+      /* Right */
+      radial-gradient(ellipse 18.4px 19.3px,
+        var(--color-v-maroon) 90%,
+        transparent 91%);
+
+    background-size:
+      58px 43px,
+      58px 43px,
+      43px 58px,
+      43px 58px;
+
+    background-position:
+      -6px -17px,
+      -6px calc(100% + 17px),
+      -17px 0,
+      calc(100% + 19px) 1px;
+
+    background-repeat:
+      repeat-x,
+      repeat-x,
+      repeat-y,
+      repeat-y;
+  }
+}
+
+
+/* ------------------------- */
