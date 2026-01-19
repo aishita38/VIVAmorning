@@ -64,9 +64,12 @@ const CulturalCouncilCard = ({ imageUrl }) => {
   )
 }
 
-const PageSection = ({ theme, bannerImage, bannerAlt, children, showHeader }) => {
+const PageSection = ({ theme, bannerImage, bannerAlt, children, showHeader, vogueHands }) => {
   return (
     <section className={`w-full min-h-screen flex flex-col items-center px-4 md:px-16 pb-16 relative overflow-hidden ${theme}`}>
+      {/* Absolute decorations (Hands) go here to ignore section padding */}
+      {vogueHands}
+
       {showHeader && (
         <header className="w-full flex flex-row justify-between items-center z-30 pt-6 px-4 md:px-8">
           <div className="flex-shrink-0">
@@ -87,7 +90,7 @@ const PageSection = ({ theme, bannerImage, bannerAlt, children, showHeader }) =>
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center items-center w-full relative z-20 pt-24">
+      <div className="flex-1 flex flex-col justify-center items-center w-full relative z-20 pt-12">
         {children}
       </div>
     </section>
@@ -112,6 +115,12 @@ function App() {
         bannerImage={mentorsBanner}
         bannerAlt="Our Mentors"
         showHeader={true}
+        vogueHands={
+          <>
+            <img ref={vogue1Ref} src={vogue1} className="vogue-img vogue-img-anim-left left-0 absolute bottom-0 h-[140px] md:h-[220px] lg:h-[260px] w-auto pointer-events-none z-50 transition-all" alt="" />
+            <img ref={vogue2Ref} src={vogue2} className="vogue-img vogue-img-anim-right right-0 absolute bottom-0 h-[140px] md:h-[220px] lg:h-[260px] w-auto pointer-events-none z-50 transition-all" alt="" />
+          </>
+        }
       >
         <div className="flex justify-center items-center w-full">
           <TeamCard
@@ -119,8 +128,6 @@ function App() {
             footerText="OUR MENTORS - AJAY RAJ, PRATHMESH, MANAS, VANSH, HARSH, MRADUL"
           />
         </div>
-        <img ref={vogue1Ref} src={vogue1} className="vogue-img vogue-img-anim-left left-0 absolute bottom-0 h-[220px] md:h-[350px] lg:h-[450px] w-auto pointer-events-none z-50 transition-all" alt="" />
-        <img ref={vogue2Ref} src={vogue2} className="vogue-img vogue-img-anim-right right-0 absolute bottom-0 h-[220px] md:h-[350px] lg:h-[450px] w-auto pointer-events-none z-50 transition-all" alt="" />
       </PageSection>
 
       <PageSection
@@ -129,10 +136,10 @@ function App() {
         bannerAlt="Fest Head"
         showHeader={false}
       >
-        <div className="w-full max-w-[1400px] flex justify-between items-start -mt-[180px] relative pointer-events-none">
+        <div className="w-full max-w-[1400px] flex justify-between items-start -mt-[220px] relative pointer-events-none">
           <img src={lantern} className="lantern-swing ml-8 md:ml-16 h-[280px] w-auto" alt="Lantern" />
           <img src={lantern} className="lantern-swing mr-8 md:mr-16 h-[280px] w-auto [animation-delay:0.5s]" alt="Lantern" />
-        </div>
+        </div>    
 
         <div className="flex gap-10 md:gap-20 justify-center items-start mt-8 md:mt-16 flex-wrap relative z-[2]">
           <PhotoCard
@@ -158,9 +165,9 @@ function App() {
           <CulturalCouncilCard imageUrl={memberImage} />
         </div>
 
-        <div className="absolute bottom-8 left-0 w-full px-4 md:px-16 flex justify-between items-end pointer-events-none z-10">
-          <img src={rickshaw} className="h-[140px] md:h-[220px] w-auto drop-shadow-2xl -scale-x-100 transition-all" alt="Rickshaw" />
-          <img src={rickshaw} className="h-[140px] md:h-[220px] w-auto drop-shadow-2xl transition-all" alt="Rickshaw" />
+        <div className="absolute bottom-[-8%] left-0 w-full px-4 md:px-12 flex justify-between items-end pointer-events-none z-10">
+          <img src={rickshaw} className="h-[100px] md:h-[160px] w-auto drop-shadow-xl -scale-x-100 transform transition-all" alt="Rickshaw" />
+          <img src={rickshaw} className="h-[100px] md:h-[160px] w-auto drop-shadow-xl transform transition-all" alt="Rickshaw" />
         </div>
       </PageSection>
     </main>
