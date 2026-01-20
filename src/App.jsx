@@ -12,15 +12,17 @@ import vogue2 from './assets/vogue 2.png'
 import rickshaw from './assets/rickshaw.png'
 import culturalSign from './assets/cultural.png'
 import memberImage from './assets/image 330.png'
+import instaIcon from './assets/instagram.png'
+import mailIcon from './assets/email.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const TeamCard = ({ imageUrl, footerText }) => {
     return (
-        <div className="flex flex-col items-center gap-6 md:gap-[30px]">
+        <div className="flex flex-col items-center gap-12 md:gap-[50px]">
             <div className="relative flex items-center bg-white p-1 rounded-sm shadow-xl">
                 <img src={leftBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -left-6 md:-left-[25px]" alt="" />
-                <div className="w-[95vw] md:w-[85vw] lg:w-[800px] aspect-[16/9] overflow-hidden relative">
+                <div className="w-[85vw] md:w-[75vw] lg:w-[650px] aspect-[16/9] overflow-hidden relative">
                     <img src={imageUrl} alt="Team Member" className="w-full h-full object-cover" />
                 </div>
                 <img src={rightBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -right-6 md:-right-[25px]" alt="" />
@@ -39,38 +41,33 @@ const PhotoCard = ({ imageUrl, name, role }) => {
         <div className="relative flex flex-col items-center">
             <div className="relative flex items-center bg-white p-1 rounded-sm shadow-xl transform transition-transform hover:scale-105">
                 <img src={leftBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -left-6 md:-left-[28px]" alt="" />
-                <div className="w-[190px] md:w-[320px] aspect-[22/24] overflow-hidden relative">
+                <div className="w-[140px] md:w-[230px] aspect-[16/24] overflow-hidden relative">
                     <img src={imageUrl} alt={name || "Team Member"} className="w-full h-full object-cover" />
                 </div>
                 <img src={rightBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -right-6 md:-right-[28px]" alt="" />
             </div>
 
             {(name || role) && (
-                <div className="absolute -bottom-[25px] md:-bottom-[35px] flex items-center gap-1.5 md:gap-2.5 z-10">
-                    {/* Left Icon (Insta Circle) */}
-                    <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-[#1a6da1] border-2 border-[#a6e3ff] flex items-center justify-center shadow-md">
-                        <div className="w-3 h-3 md:w-4 md:h-4 border-2 border-white/80 rounded-[4px] relative">
-                            <div className="absolute top-[1px] right-[1px] w-0.5 h-0.5 bg-white rounded-full"></div>
-                        </div>
-                    </div>
+                <div className="absolute -bottom-[60px] md:-bottom-[85px] flex items-center gap-0.5 md:gap-1 z-10">
+                    {/* Left Icon */}
+                    <a href="#" className="w-9 h-9 md:w-12 md:h-12 flex items-center justify-center transition-transform hover:scale-110">
+                        <img src={instaIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Instagram" />
+                    </a>
 
                     {/* Main Label Pill */}
-                    <div className="bg-[#1ca3d3] border-3 md:border-4 border-dotted border-white/60 px-5 md:px-8 py-1 md:py-1.5 rounded-[20px] md:rounded-[25px] text-center shadow-lg min-w-[140px] md:min-w-[200px]">
-                        <div className="text-white text-[0.75rem] md:text-[0.95rem] font-bold tracking-wider leading-tight uppercase font-sans">
+                    <div className="label-pill-ticket">
+                        <div className="text-white text-[0.8rem] md:text-[1.1rem] font-semibold tracking-wider leading-[1.1] uppercase font-sans whitespace-nowrap">
                             {name}
                         </div>
-                        <div className="text-[#a6e3ff] text-[0.55rem] md:text-[0.65rem] font-bold tracking-[0.15em] uppercase font-sans mt-0.5">
+                        <div className="text-white/95 text-[0.7rem] md:text-[0.95rem] font-normal tracking-[0.12em] uppercase font-sans leading-tight">
                             {role}
                         </div>
                     </div>
 
-                    {/* Right Icon (Mail Circle) */}
-                    <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-[#1a6da1] border-2 border-[#a6e3ff] flex items-center justify-center shadow-md">
-                        <div className="w-3.5 h-2.5 md:w-4.5 md:h-3.5 border-2 border-white/80 rounded-[2px] relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-[1px] bg-white translate-y-[2px] rotate-[30deg] origin-left"></div>
-                            <div className="absolute top-0 right-0 w-full h-[1px] bg-white translate-y-[2px] -rotate-[30deg] origin-right"></div>
-                        </div>
-                    </div>
+                    {/* Right Icon */}
+                    <a href="#" className="w-9 h-9 md:w-12 md:h-12 flex items-center justify-center transition-transform hover:scale-110">
+                        <img src={mailIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Email" />
+                    </a>
                 </div>
             )}
         </div>
@@ -85,7 +82,7 @@ const CulturalCouncilCard = ({ imageUrl }) => {
                 <img src={imageUrl} alt="Cultural Council Member" className="w-full h-full object-cover" />
             </div>
             <img src={rightBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -right-5" alt="" />
-            <div className="absolute -bottom-[22px] left-1/2 -translate-x-1/2 bg-[#9d00cc] w-[140px] md:w-[160px] h-[35px] md:h-[40px] rounded-[20px] border-4 border-dotted border-white/80 shadow-[0_4px_10px_rgba(0,0,0,0.2)] z-[3]"></div>
+            <div className="absolute -bottom-[40px] md:-bottom-[55px] left-1/2 -translate-x-1/2 bg-[#9d00cc] w-[140px] md:w-[160px] h-[35px] md:h-[40px] rounded-[20px] border-4 border-dotted border-white/80 shadow-[0_4px_10px_rgba(0,0,0,0.2)] z-[3]"></div>
         </div>
     )
 }
@@ -102,7 +99,7 @@ const PageSection = ({ theme, bannerImage, bannerAlt, children, showHeader, vogu
                         <img src={vivaLogo} alt="Vivacity'26 Logo" className="h-[60px] md:h-[100px] w-auto transition-all" />
                     </div>
                     <nav className="flex items-center gap-2 md:gap-6 lg:gap-10 pr-0 md:pr-2">
-                        <a href="#home" className="no-underline text-[#3d1c10] font-bold text-[0.7rem] md:text-base lg:text-xl tracking-widest hover:text-[#9E5D47] transition-colors">HOME</a>
+                        <a href="#home" className="no-underline text-[#3d1c10] font-semibold text-[0.7rem] md:text-base lg:text-xl tracking-widest hover:text-[#9E5D47] transition-colors">HOME</a>
                         <a href="#events" className="no-underline text-[#3d1c10] font-semibold text-[0.7rem] md:text-base lg:text-xl tracking-widest hover:text-[#9E5D47] transition-colors">EVENTS</a>
                         <a href="#sponsors" className="no-underline text-[#3d1c10] font-semibold text-[0.7rem] md:text-base lg:text-xl tracking-widest hover:text-[#9E5D47] transition-colors">SPONSORS</a>
                         <a href="#team" className="no-underline text-[#3d1c10] font-semibold text-[0.7rem] md:text-base lg:text-xl tracking-widest hover:text-[#9E5D47] transition-colors">OUR TEAM</a>
@@ -110,11 +107,7 @@ const PageSection = ({ theme, bannerImage, bannerAlt, children, showHeader, vogu
                 </header>
             )}
 
-            <div className="absolute top-[130px] -mt-[150px] left-1/2 -translate-x-1/2 z-10">
-                <div className="swing-banner">
-                    <img src={bannerImage} alt={bannerAlt} className="h-[280px] max-[768px]:h-[220px] max-[480px]:h-[170px] w-auto" />
-                </div>
-            </div>
+            {/* Banner rendering removed from here to be handled by fixed container in App */}
 
             <div className="flex-1 flex flex-col justify-center items-center w-full relative z-20 pt-12">
                 {children}
@@ -142,6 +135,9 @@ function App() {
     const lanternRightRef = useRef(null)
     const rickshawLeftRef = useRef(null)
     const rickshawRightRef = useRef(null)
+    const banner1Ref = useRef(null)
+    const banner2Ref = useRef(null)
+    const banner3Ref = useRef(null)
 
     useLayoutEffect(() => {
         // 0. Hands Entrance Animation (On Load)
@@ -192,43 +188,55 @@ function App() {
         }
 
         // 2. Section 2 Entrance Animations (Lanterns & Banner)
-        // These animate IN automatically when we reach section 2
         if (section2Ref.current) {
-            // Set initial state for lanterns
-            gsap.set([lanternLeftRef.current, lanternRightRef.current], { y: -300, opacity: 0 });
+            // Lanterns - Stick to top and fade in
+            gsap.set([lanternLeftRef.current, lanternRightRef.current], { opacity: 0 });
 
-            // Lanterns - Drop in automatically
-            gsap.to([lanternLeftRef.current, lanternRightRef.current], {
-                y: 0,
-                opacity: 1,
-                duration: 1.5,
-                stagger: 0.15, // Slight delay between them
-                ease: "bounce.out",
-                scrollTrigger: {
-                    trigger: section2Ref.current,
-                    start: "top 75%", // Start when top of S2 is 75% down viewport
-                    toggleActions: "play none none reverse" // Play on enter, reverse on scroll back
-                }
+            ScrollTrigger.create({
+                trigger: section2Ref.current,
+                start: "top 20%",
+                end: "bottom 20%",
+                onEnter: () => gsap.to([lanternLeftRef.current, lanternRightRef.current], { opacity: 1, duration: 0.5 }),
+                onLeave: () => gsap.to([lanternLeftRef.current, lanternRightRef.current], { opacity: 0, duration: 0.5 }),
+                onEnterBack: () => gsap.to([lanternLeftRef.current, lanternRightRef.current], { opacity: 1, duration: 0.5 }),
+                onLeaveBack: () => gsap.to([lanternLeftRef.current, lanternRightRef.current], { opacity: 0, duration: 0.5 }),
             });
 
-            // Fest Head Banner - Drop/Scale in automatically
-            const bannerElement = section2Ref.current.querySelector('.swing-banner');
-            if (bannerElement) {
-                gsap.set(bannerElement, { y: -200, opacity: 0, scale: 0.8 });
+            // Section 2 Banner - Stick and Fade
+            gsap.set(banner2Ref.current, { opacity: 0 });
+            ScrollTrigger.create({
+                trigger: section2Ref.current,
+                start: "top 20%",
+                end: "bottom 20%",
+                onEnter: () => gsap.to(banner2Ref.current, { opacity: 1, duration: 0.5 }),
+                onLeave: () => gsap.to(banner2Ref.current, { opacity: 0, duration: 0.5 }),
+                onEnterBack: () => gsap.to(banner2Ref.current, { opacity: 1, duration: 0.5 }),
+                onLeaveBack: () => gsap.to(banner2Ref.current, { opacity: 0, duration: 0.5 }),
+            });
+        }
 
-                gsap.to(bannerElement, {
-                    y: 0,
-                    opacity: 1,
-                    scale: 1,
-                    duration: 1.2,
-                    ease: "elastic.out(1, 0.5)",
-                    scrollTrigger: {
-                        trigger: section2Ref.current,
-                        start: "top 70%",
-                        toggleActions: "play none none reverse" // Play on enter, reverse on leave
-                    }
-                });
-            }
+        // Section 1 Banner - Stick and Fade
+        if (section1Ref.current) {
+            gsap.set(banner1Ref.current, { opacity: 1 });
+            ScrollTrigger.create({
+                trigger: section1Ref.current,
+                start: "top top",
+                end: "bottom 20%",
+                onEnterBack: () => gsap.to(banner1Ref.current, { opacity: 1, duration: 0.5 }),
+                onLeave: () => gsap.to(banner1Ref.current, { opacity: 0, duration: 0.5 }),
+            });
+        }
+
+        // Section 3 Banner - Stick and Fade
+        if (section3Ref.current) {
+            gsap.set(banner3Ref.current, { opacity: 0 });
+            ScrollTrigger.create({
+                trigger: section3Ref.current,
+                start: "top 20%",
+                end: "bottom bottom",
+                onEnter: () => gsap.to(banner3Ref.current, { opacity: 1, duration: 0.5 }),
+                onLeaveBack: () => gsap.to(banner3Ref.current, { opacity: 0, duration: 0.5 }),
+            });
         }
 
         // 3. Rickshaw Horizontal Full-Width Animation
@@ -276,24 +284,18 @@ function App() {
         // Transition: Orange -> Blue (Section 1 to Section 2)
         ScrollTrigger.create({
             trigger: section2Ref.current,
-            start: "top bottom", // Starts when top of S2 hits bottom of viewport
-            end: "center center", // Ends when center of S2 is in center
-            scrub: true,
-            onUpdate: (self) => {
-                // Fade in Blue over Orange
-                gsap.set(bgBlueRef.current, { opacity: self.progress });
+            start: "top 50%", // Threshold to switch background
+            onToggle: self => {
+                gsap.to(bgBlueRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.8, ease: "power2.inOut" });
             }
         });
 
         // Transition: Blue -> Purple (Section 2 to Section 3)
         ScrollTrigger.create({
             trigger: section3Ref.current,
-            start: "top bottom",
-            end: "center center",
-            scrub: true,
-            onUpdate: (self) => {
-                // Fade in Purple over Blue
-                gsap.set(bgPurpleRef.current, { opacity: self.progress });
+            start: "top 50%",
+            onToggle: self => {
+                gsap.to(bgPurpleRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.8, ease: "power2.inOut" });
             }
         });
 
@@ -312,6 +314,8 @@ function App() {
                 <div ref={bgPurpleRef} className="absolute inset-0 w-full h-full bg-gradient-purple transition-opacity duration-0" />
             </div>
 
+            {/* FIXED BANNERS handled inside PageSection's vogueHands for better isolation */}
+
             <PageSection
                 sectionRef={section1Ref}
                 theme="orange-theme" // CSS class now just handles non-bg styles if any
@@ -320,16 +324,21 @@ function App() {
                 showHeader={true}
                 vogueHands={
                     <>
+                        <div ref={banner1Ref} className="fixed top-[15px] mt-[60px] left-1/2 -translate-x-1/2 z-[40] pointer-events-none">
+                            <div className="swing-banner">
+                                <img src={mentorsBanner} alt="Our Mentors" className="h-[220px] max-[768px]:h-[170px] max-[480px]:h-[130px] w-auto" />
+                            </div>
+                        </div>
                         <img
                             ref={vogue1Ref}
                             src={vogue1}
-                            className="vogue-img left-20 fixed bottom-14 md:bottom-16 h-[150px] md:h-[250px] lg:h-[320px] w-auto pointer-events-none z-50 will-change-transform opacity-0"
+                            className="vogue-img left-20 fixed bottom-20 md:bottom-10 h-[120px] md:h-[180px] lg:h-[240px] w-auto pointer-events-none z-50 will-change-transform opacity-0"
                             alt=""
                         />
                         <img
                             ref={vogue2Ref}
                             src={vogue2}
-                            className="right-20 fixed bottom-14 md:bottom-16 h-[150px] md:h-[250px] lg:h-[320px] w-auto pointer-events-none z-50 will-change-transform opacity-0"
+                            className="right-20 fixed bottom-20 md:bottom-10 h-[120px] md:h-[180px] lg:h-[240px] w-auto pointer-events-none z-50 will-change-transform opacity-0"
                             alt=""
                         />
 
@@ -350,12 +359,20 @@ function App() {
                 bannerImage={festheadBanner}
                 bannerAlt="Fest Head"
                 showHeader={false}
+                vogueHands={
+                    <>
+                        <div ref={banner2Ref} className="fixed top-[15px] mt-[60px] left-1/2 -translate-x-1/2 z-[40] pointer-events-none">
+                            <div className="swing-banner">
+                                <img src={festheadBanner} alt="Fest Head" className="h-[220px] max-[768px]:h-[170px] max-[480px]:h-[130px] w-auto" />
+                            </div>
+                        </div>
+                        <div className="fixed top-[48px] md:top-[80px] left-0 right-0 w-full px-12 md:px-32 flex justify-between pointer-events-none z-30">
+                            <img ref={lanternLeftRef} src={lantern} className="lantern-swing h-[280px] md:h-[380px] w-auto" alt="Lantern" />
+                            <img ref={lanternRightRef} src={lantern} className="lantern-swing h-[280px] md:h-[380px] w-auto " alt="Lantern" />
+                        </div>
+                    </>
+                }
             >
-                {/* Lanterns positioned at the top like the reference image */}
-                <div className="absolute top-[-50px] md:top-[-80px] left-0 right-0 w-full px-12 md:px-32 flex justify-between pointer-events-none z-30">
-                    <img ref={lanternLeftRef} src={lantern} className="lantern-swing h-[280px] md:h-[380px] w-auto" alt="Lantern" />
-                    <img ref={lanternRightRef} src={lantern} className="lantern-swing h-[280px] md:h-[380px] w-auto [animation-delay:0.5s]" alt="Lantern" />
-                </div>
 
                 <div className="flex gap-16 md:gap-32 justify-center items-center mt-16 md:mt-24 flex-wrap relative z-[2]">
                     <PhotoCard
@@ -377,6 +394,13 @@ function App() {
                 bannerImage={culturalSign}
                 bannerAlt="Cultural Council"
                 showHeader={false}
+                vogueHands={
+                    <div ref={banner3Ref} className="fixed top-[15px] mt-[60px] left-1/2 -translate-x-1/2 z-[40] pointer-events-none">
+                        <div className="swing-banner">
+                            <img src={culturalSign} alt="Cultural Council" className="h-[220px] max-[768px]:h-[170px] max-[480px]:h-[130px] w-auto" />
+                        </div>
+                    </div>
+                }
             >
                 <div className="flex gap-8 md:gap-16 lg:gap-24 justify-center items-start mt-8 md:mt-12 flex-wrap relative z-[2]">
                     <CulturalCouncilCard imageUrl={memberImage} />

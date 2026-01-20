@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
 @theme {
   --font-sans: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   --color-brand-orange-light: #fcc096;
@@ -14,6 +19,12 @@
 @layer base {
   body {
     @apply m-0 p-0 min-h-screen flex flex-col relative overflow-x-hidden bg-[#f7d0ab] text-[#213547] w-full;
+    font-family: var(--font-sans);
+  }
+
+  section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   body::after {
@@ -137,47 +148,74 @@
 @layer utilities {
   .stamp-border {
     background-color: var(--color-v-cream);
-
     border-radius: 109px;
-
     background-image:
-      /* Top */
-      radial-gradient(ellipse 21.6px 16.5px,
-        var(--color-v-maroon) 90%,
-        transparent 91%),
+      radial-gradient(ellipse 21.6px 16.5px, var(--color-v-maroon) 90%, transparent 91%),
+      radial-gradient(ellipse 21.6px 16.5px, var(--color-v-maroon) 90%, transparent 91%),
+      radial-gradient(ellipse 18.4px 19.3px, var(--color-v-maroon) 90%, transparent 91%),
+      radial-gradient(ellipse 18.4px 19.3px, var(--color-v-maroon) 90%, transparent 91%);
+    background-size: 58px 43px, 58px 43px, 43px 58px, 43px 58px;
+    background-position: -6px -17px, -6px calc(100% + 17px), -17px 0, calc(100% + 19px) 1px;
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  }
 
-      /* Bottom */
-      radial-gradient(ellipse 21.6px 16.5px,
-        var(--color-v-maroon) 90%,
-        transparent 91%),
+  .label-pill-ticket {
+    background-color: #0099bc;
+    border-radius: 70px;
+    position: relative;
+    padding: 0.45rem 0.8rem 0.35rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    border: none;
+    width: 240px;
+    gap: 1px;
+  }
 
-      /* Left */
-      radial-gradient(ellipse 18.4px 19.3px,
-        var(--color-v-maroon) 90%,
-        transparent 91%),
+  .label-pill-ticket::before,
+  .label-pill-ticket::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    height: 5px;
+    background-image: radial-gradient(circle, white 1.3px, transparent 1.6px);
+    background-size: 8px 5px;
+    background-repeat: repeat-x;
+  }
 
-      /* Right */
-      radial-gradient(ellipse 18.4px 19.3px,
-        var(--color-v-maroon) 90%,
-        transparent 91%);
+  .label-pill-ticket::before {
+    top: 3px;
+  }
 
-    background-size:
-      58px 43px,
-      58px 43px,
-      43px 58px,
-      43px 58px;
+  .label-pill-ticket::after {
+    bottom: 3px;
+  }
 
-    background-position:
-      -6px -17px,
-      -6px calc(100% + 17px),
-      -17px 0,
-      calc(100% + 19px) 1px;
+  @media (max-width: 768px) {
+    .label-pill-ticket {
+      padding: 0.35rem 0.6rem 0.25rem;
+      width: 170px;
+    }
 
-    background-repeat:
-      repeat-x,
-      repeat-x,
-      repeat-y,
-      repeat-y;
+    .label-pill-ticket::before,
+    .label-pill-ticket::after {
+      height: 4px;
+      background-image: radial-gradient(circle, white 1.1px, transparent 1.4px);
+      background-size: 7px 4px;
+      left: 12px;
+      right: 12px;
+    }
+
+    .label-pill-ticket::before {
+      top: 5px;
+    }
+
+    .label-pill-ticket::after {
+      bottom: 5px;
+    }
   }
 }
 
