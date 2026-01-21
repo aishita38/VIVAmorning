@@ -42,32 +42,48 @@ const TeamCard = ({ imageUrl, footerText }) => {
 
 const PhotoCard = ({ imageUrl, name, role, size = "normal" }) => {
     const isSmall = size === "small";
+    const cardRef = useRef(null);
+    const [labelWidth, setLabelWidth] = useState('auto');
+
     const imageWidthClasses = isSmall
-        ? "w-[85px] sm:w-[105px] md:w-[105px] lg:w-[125px] xl:w-[9vw] 2xl:w-[11vw]"
-        : "w-[100px] sm:w-[130px] md:w-[130px] lg:w-[155px] xl:w-[12vw] 2xl:w-[15vw]";
+        ? "w-[85px] sm:w-[105px] md:w-[105px] lg:w-[125px] xl:w-[12vw] 2xl:w-[14vw]"
+        : "w-[100px] sm:w-[130px] md:w-[130px] lg:w-[155px] xl:w-[15vw] 2xl:w-[18vw]";
 
     // Bottom offset
     const bottomClasses = isSmall
-        ? "-bottom-[38px] sm:-bottom-[50px] md:-bottom-[45px] lg:-bottom-[50px] xl:-bottom-[68px] 2xl:-bottom-[85px]"
-        : "-bottom-[45px] sm:-bottom-[58px] md:-bottom-[54px] lg:-bottom-[58px] xl:-bottom-[82px] 2xl:-bottom-[100px]";
+        ? "-bottom-[38px] sm:-bottom-[50px] md:-bottom-[45px] lg:-bottom-[50px] xl:-bottom-[75px] 2xl:-bottom-[95px]"
+        : "-bottom-[45px] sm:-bottom-[58px] md:-bottom-[54px] lg:-bottom-[58px] xl:-bottom-[90px] 2xl:-bottom-[115px]";
 
     // Icon size
     const iconWidthClasses = isSmall
-        ? "w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-[2.2vw] xl:h-[2.2vw] 2xl:w-[2.8vw] 2xl:h-[2.8vw]"
-        : "w-6 h-6 sm:w-8 sm:h-8 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-[3vw] xl:h-[3vw] 2xl:w-[3.5vw] 2xl:h-[3.5vw]";
+        ? "w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-[2.5vw] xl:h-[2.5vw] 2xl:w-[3vw] 2xl:h-[3vw]"
+        : "w-6 h-6 sm:w-8 sm:h-8 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-[3.2vw] xl:h-[3.2vw] 2xl:w-[3.8vw] 2xl:h-[3.8vw]";
 
     // Text sizes
     const nameTextSize = isSmall
-        ? "text-[0.55rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.8vw] 2xl:text-[1vw]"
-        : "text-[0.65rem] sm:text-[0.7rem] md:text-[0.85rem] lg:text-[1rem] xl:text-[1vw] 2xl:text-[1.2vw]";
+        ? "text-[0.55rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9vw] 2xl:text-[1.1vw]"
+        : "text-[0.65rem] sm:text-[0.7rem] md:text-[0.85rem] lg:text-[1rem] xl:text-[1.1vw] 2xl:text-[1.3vw]";
 
     const roleTextSize = isSmall
-        ? "text-[0.45rem] sm:text-[0.5rem] md:text-[0.6rem] lg:text-[0.7rem] xl:text-[0.65vw] 2xl:text-[0.8vw]"
-        : "text-[0.55rem] sm:text-[0.6rem] md:text-[0.75rem] lg:text-[0.85rem] xl:text-[0.85vw] 2xl:text-[1vw]";
+        ? "text-[0.45rem] sm:text-[0.5rem] md:text-[0.6rem] lg:text-[0.7rem] xl:text-[0.7vw] 2xl:text-[0.9vw]"
+        : "text-[0.55rem] sm:text-[0.6rem] md:text-[0.75rem] lg:text-[0.85rem] xl:text-[0.9vw] 2xl:text-[1.1vw]";
+
+    useLayoutEffect(() => {
+        if (cardRef.current) {
+            setLabelWidth(cardRef.current.offsetWidth * 1.2);
+        }
+        const handleResize = () => {
+            if (cardRef.current) {
+                setLabelWidth(cardRef.current.offsetWidth * 1.2);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
         <div className="relative flex flex-col items-center">
-            <div className={`relative flex items-center bg-white p-[1.5px] sm:p-[2px] md:p-[2.5px] rounded-[12px] sm:rounded-[15px] md:rounded-[18px] shadow-xl transform transition-transform hover:scale-105`}>
+            <div ref={cardRef} className={`relative flex items-center bg-white p-[1.5px] sm:p-[2px] md:p-[2.5px] rounded-[12px] sm:rounded-[15px] md:rounded-[18px] shadow-xl transform transition-transform hover:scale-105`}>
                 <img src={leftBorder} className="h-[96%] absolute top-[-3%] w-auto z-[2] pointer-events-none -left-3 sm:-left-4 md:-left-5 lg:-left-[24px]" alt="" />
                 <div className={`${imageWidthClasses} aspect-[16/24] overflow-hidden relative rounded-[10.5px] sm:rounded-[13px] md:rounded-[16px]`}>
                     <img src={imageUrl} alt={name || "Team Member"} className="w-full h-full object-cover" />
@@ -83,11 +99,14 @@ const PhotoCard = ({ imageUrl, name, role, size = "normal" }) => {
                     </a>
 
                     {/* Main Label Pill */}
-                    <div className={`label-pill-ticket ${isSmall ? 'label-pill-compact' : ''}`}>
+                    <div
+                        className={`label-pill-ticket ${isSmall ? 'label-pill-compact' : ''}`}
+                        style={{ width: labelWidth }}
+                    >
                         <div className={`${nameTextSize} text-white font-semibold tracking-wider leading-[1.1] uppercase font-sans whitespace-nowrap`}>
                             {name}
                         </div>
-                        <div className={`${roleTextSize} text-white/95 font-normal tracking-[0.12em] uppercase font-sans leading-tight`}>
+                        <div className={`${roleTextSize} text-white/95 font-normal tracking-[0.12em] uppercase font-sans leading-tight text-center`}>
                             {role}
                         </div>
                     </div>
@@ -134,7 +153,7 @@ const Header = () => {
 
     return (
         <>
-            <header className="w-full flex flex-row justify-between items-center z-50 pt-10 sm:pt-12 md:pt-14 lg:pt-16 px-5 lg:px-6 xl:px-12 2xl:px-20 relative">
+            <header className="w-full flex flex-row justify-between items-center z-50 pt-10 sm:pt-12 md:pt-14 lg:pt-16 px-3 lg:px-3 xl:px-12 2xl:px-20 relative">
                 <div className="flex-shrink-0 z-50 relative">
                     <img src={vivaLogo} alt="Vivacity'26 Logo" className="h-[40px] sm:h-[50px] md:h-[70px] lg:h-[90px] w-auto transition-all" />
                 </div>
@@ -790,7 +809,7 @@ function App() {
                 }
             >
                 <div className="flex flex-col items-center w-full relative z-[2] mt-24 sm:mt-28 md:mt-32 lg:mt-40">
-                    <div className="flex flex-col md:flex-row flex-wrap xl:flex-nowrap gap-12 sm:gap-16 md:gap-12 lg:gap-16 xl:gap-16 justify-center items-center">
+                    <div className="flex flex-col md:flex-row flex-wrap md:flex-nowrap w-full gap-4 sm:gap-6 md:gap-8 justify-evenly items-center px-4">
                         <PhotoCard
                             imageUrl="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop"
                             name="RISHABH SRIVASTAVA"
@@ -860,38 +879,34 @@ function App() {
                 }
             >
                 <div className="flex flex-col items-center w-full relative z-[2] mt-24 sm:mt-28 md:mt-32 lg:mt-40">
-                    <div className="flex flex-col items-center gap-16 sm:gap-24 md:gap-16 lg:gap-32">
-                        {/* Top Row */}
-                        <div className="flex flex-col md:flex-row gap-16 sm:gap-24 md:gap-16 lg:gap-32 xl:gap-32 justify-center items-center">
-                            <PhotoCard
-                                imageUrl="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop"
-                                name="VIKRANT SINGH RATHORE"
-                                role="EVENTS HEAD"
-                                size="small"
-                            />
-                            <PhotoCard
-                                imageUrl="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?q=80&w=400&auto=format&fit=crop"
-                                name="RAGHAV PATHAK"
-                                role="EVENTS HEAD"
-                                size="small"
-                            />
-                            <PhotoCard
-                                imageUrl="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?q=80&w=400&auto=format&fit=crop"
-                                name="PARTH GOYAL"
-                                role="EVENTS HEAD"
-                                size="small"
-                            />
-                        </div>
-                        {/* Bottom Row */}
-                        <div className="flex justify-center items-center">
-                            <PhotoCard
-                                imageUrl="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?q=80&w=400&auto=format&fit=crop"
-                                name="TAVISHI VERMA"
-                                role="EVENTS HEAD"
-                                size="small"
-                            />
-                        </div>
+                    <div className="flex flex-col md:flex-row flex-wrap md:flex-nowrap w-full gap-4 sm:gap-6 md:gap-8 justify-evenly items-center px-4">
+                        <PhotoCard
+                            imageUrl="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop"
+                            name="VIKRANT SINGH RATHORE"
+                            role="EVENTS HEAD"
+                            size="small"
+                        />
+                        <PhotoCard
+                            imageUrl="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?q=80&w=400&auto=format&fit=crop"
+                            name="RAGHAV PATHAK"
+                            role="EVENTS HEAD"
+                            size="small"
+                        />
+                        <PhotoCard
+                            imageUrl="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?q=80&w=400&auto=format&fit=crop"
+                            name="PARTH GOYAL"
+                            role="EVENTS HEAD"
+                            size="small"
+                        />
+                        <PhotoCard
+                            imageUrl="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?q=80&w=400&auto=format&fit=crop"
+                            name="TAVISHI VERMA"
+                            role="EVENTS HEAD"
+                            size="small"
+                        />
                     </div>
+
+
 
                     <div className="mt-20 sm:mt-24 md:mt-28 lg:mt-32 text-center max-w-[90vw] px-4 mb-20">
                         <p className="font-sans font-normal text-[#3d1c10] text-[0.7rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1rem] xl:text-[1.1rem] 2xl:text-[1.2rem] tracking-[0.05em] uppercase leading-relaxed max-w-[1000px] mx-auto opacity-90">
@@ -900,7 +915,7 @@ function App() {
                     </div>
                 </div>
             </PageSection>
-        </main>
+        </main >
     )
 }
 

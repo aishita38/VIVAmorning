@@ -187,7 +187,7 @@ html {
   }
 
   .label-pill-compact {
-    width: 175px !important;
+    width: 175px;
     padding: 0.35rem 0.6rem 0.25rem !important;
   }
 
@@ -218,7 +218,7 @@ html {
     }
 
     .label-pill-compact {
-      width: 125px !important;
+      width: 125px;
       padding: 0.25rem 0.45rem 0.15rem !important;
     }
 
@@ -248,7 +248,7 @@ html {
     }
 
     .label-pill-compact {
-      width: 110px !important;
+      width: 110px;
     }
 
     .label-pill-ticket::before,
@@ -289,7 +289,7 @@ html {
     }
 
     .label-pill-compact {
-      width: 10vw !important;
+      width: 10vw;
       padding: 0.4rem 0.6rem 0.3rem !important;
     }
   }
@@ -301,7 +301,7 @@ html {
     }
 
     .label-pill-compact {
-      width: 13vw !important;
+      width: 13vw;
       padding: 0.5rem 0.75rem 0.4rem !important;
     }
   }
