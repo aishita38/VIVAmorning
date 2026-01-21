@@ -1,4 +1,4 @@
-import OurTeam from './components/ourTeam'
+import OurTeam from './components/ourTeam/OurTeam'
 
 function App() {
     return (

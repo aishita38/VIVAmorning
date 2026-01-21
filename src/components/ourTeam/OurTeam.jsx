@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react'
+import '../../styles/ourTeam.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
@@ -19,7 +20,7 @@ import {
     developmentBanner,
     creativeBanner,
     prEventsBanner
-} from '../assets/ourTeam'
+} from '../../assets/ourTeam'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -123,15 +124,69 @@ const PhotoCard = ({ imageUrl, name, role, size = "normal" }) => {
     )
 }
 
-const CulturalCouncilCard = ({ imageUrl }) => {
+const CulturalCouncilCard = ({ imageUrl, name, role }) => {
+    const cardRef = useRef(null);
+    const [labelWidth, setLabelWidth] = useState('auto');
+
+    // Matching EXACTLY with PhotoCard "small" size logic
+    const imageWidthClasses = "w-[85px] sm:w-[105px] md:w-[105px] lg:w-[125px] xl:w-[12vw] 2xl:w-[14vw]";
+
+    // Bottom offset matching PhotoCard "small"
+    const bottomClasses = "-bottom-[38px] sm:-bottom-[50px] md:-bottom-[45px] lg:-bottom-[50px] xl:-bottom-[75px] 2xl:-bottom-[95px]";
+
+    // Icon size matching PhotoCard "small"
+    const iconWidthClasses = "w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-[2.5vw] xl:h-[2.5vw] 2xl:w-[3vw] 2xl:h-[3vw]";
+
+    // Text sizes matching PhotoCard "small"
+    const nameTextSize = "text-[0.55rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9vw] 2xl:text-[1.1vw]";
+    const roleTextSize = "text-[0.45rem] sm:text-[0.5rem] md:text-[0.6rem] lg:text-[0.7rem] xl:text-[0.7vw] 2xl:text-[0.9vw]";
+
+    useLayoutEffect(() => {
+        if (cardRef.current) {
+            setLabelWidth(cardRef.current.offsetWidth * 1.2);
+        }
+        const handleResize = () => {
+            if (cardRef.current) {
+                setLabelWidth(cardRef.current.offsetWidth * 1.2);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
-        <div className="relative flex items-center p-1 rounded">
-            <img src={leftBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -left-3 sm:-left-3 md:-left-4 lg:-left-5" alt="" />
-            <div className="w-[110px] sm:w-[130px] md:w-[160px] lg:w-[190px] aspect-[22/26] overflow-hidden relative rounded-[12px] sm:rounded-[15px] md:rounded-[18px] bg-white p-[1.5px] sm:p-[2px] md:p-[2.5px] shadow-xl">
-                <img src={imageUrl} alt="Cultural Council Member" className="w-full h-full object-cover rounded-[10.5px] sm:rounded-[13px] md:rounded-[16px]" />
+        <div className="relative flex flex-col items-center">
+            <div ref={cardRef} className="relative flex items-center bg-white p-[1.5px] sm:p-[2px] md:p-[2.5px] rounded-[12px] sm:rounded-[15px] md:rounded-[18px] shadow-xl transition-transform hover:scale-105 duration-300">
+                <img src={leftBorder} className="h-[96%] absolute top-[-3%] w-auto z-[2] pointer-events-none -left-3 sm:-left-4 md:-left-5 lg:-left-[24px]" alt="" />
+                {/* Changed aspect ratio from 22/26 (approx 0.85) to 16/24 (approx 0.67) to match PhotoCard dimensions exactly */}
+                <div className={`${imageWidthClasses} aspect-[16/24] overflow-hidden relative rounded-[10.5px] sm:rounded-[13px] md:rounded-[16px]`}>
+                    <img src={imageUrl} alt={name || "Cultural Council Member"} className="w-full h-full object-cover" />
+                </div>
+                <img src={rightBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -right-3 sm:-right-4 md:-right-5 lg:-right-[24px]" alt="" />
             </div>
-            <img src={rightBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -right-3 sm:-right-3 md:-right-4 lg:-right-5" alt="" />
-            <div className="absolute -bottom-[30px] sm:-bottom-[35px] md:-bottom-[40px] lg:-bottom-[45px] left-1/2 -translate-x-1/2 bg-[#9d00cc] w-[100px] sm:w-[115px] md:w-[135px] lg:w-[150px] h-[25px] sm:h-[28px] md:h-[32px] lg:h-[36px] rounded-[15px] sm:rounded-[18px] md:rounded-[20px] border-2 sm:border-3 border-dotted border-white/80 shadow-[0_4px_10px_rgba(0,0,0,0.2)] z-[3]"></div>
+
+            <div className={`absolute ${bottomClasses} flex items-center gap-0.5 sm:gap-1 md:gap-1.5 z-10`}>
+                <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
+                    <img src={instaIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Instagram" />
+                </a>
+
+                {/* Using label-pill-compact logic by adding a specific class modifier or just ensuring size matches */}
+                <div
+                    className="label-pill-ticket-purple label-pill-compact"
+                    style={{ width: labelWidth }}
+                >
+                    <div className={`${nameTextSize} text-white font-semibold tracking-wider leading-[1.1] uppercase font-sans whitespace-nowrap`}>
+                        {name}
+                    </div>
+                    <div className={`${roleTextSize} text-white/95 font-normal tracking-[0.12em] uppercase font-sans leading-tight text-center`}>
+                        {role}
+                    </div>
+                </div>
+
+                <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
+                    <img src={mailIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Email" />
+                </a>
+            </div>
         </div>
     )
 }
@@ -548,13 +603,9 @@ function OurTeam() {
         });
 
         // Transition: -> Orange again (Section 8)
-        ScrollTrigger.create({
-            trigger: section8Ref.current,
-            start: "top 50%",
-            onToggle: self => {
-                gsap.to(bgOrangeRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.8, ease: "power2.inOut" });
-            }
-        });
+        // Removed unnecessary trigger that was hiding the base orange layer. 
+        // Since Orange is z-index 1 (bottom), fading out the upper layers (purple from Sec 7) 
+        // automatically reveals the Orange background.
 
         // Border Continuity Logic for Sponsor Section (4 & 5)
         // Sec 4: Hide bottom border to connect to 5
@@ -696,10 +747,10 @@ function OurTeam() {
                     </div>
                 }
             >
-                <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-24 justify-center items-center mt-6 sm:mt-8 md:mt-10 lg:mt-12 flex-wrap relative z-[2]">
-                    <CulturalCouncilCard imageUrl={memberImage} />
-                    <CulturalCouncilCard imageUrl={memberImage} />
-                    <CulturalCouncilCard imageUrl={memberImage} />
+                <div className="flex flex-col md:flex-row gap-16 sm:gap-20 md:gap-16 lg:gap-24 xl:gap-32 justify-center items-center mt-12 sm:mt-16 md:mt-20 lg:mt-24 flex-wrap relative z-[2]">
+                    <CulturalCouncilCard imageUrl={memberImage} name="KANISHQ SINGHAL" role="GENERAL SECRETARY" />
+                    <CulturalCouncilCard imageUrl={memberImage} name="ISHITA KHANDELWAL" role="ASSOCIATE G. SEC" />
+                    <CulturalCouncilCard imageUrl={memberImage} name="TANMAY JAIN" role="FINANCE CONVENOR" />
                 </div>
 
                 {/* Updated: Remove horizontal padding (px-0) and adjusted vertical position */}
