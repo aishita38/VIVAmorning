@@ -367,11 +367,10 @@ function App() {
                 onToggle: self => gsap.to(banner4Ref.current, { opacity: self.isActive ? 1 : 0, duration: 0.5, ease: "power2.inOut" })
             });
 
-            // Lanterns Animation (Visible for Section 4 and 5)
+            // Lanterns Animation (Visible only for Section 4)
             ScrollTrigger.create({
                 trigger: section4Ref.current,
                 start: "top 20%",
-                endTrigger: section5Ref.current,
                 end: "bottom 20%",
                 onEnter: () => gsap.to([lanternLeftSponsorRef.current, lanternRightSponsorRef.current], { opacity: 1, duration: 0.5 }),
                 onLeave: () => gsap.to([lanternLeftSponsorRef.current, lanternRightSponsorRef.current], { opacity: 0, duration: 0.5 }),
@@ -552,6 +551,29 @@ function App() {
             start: "top 50%",
             onToggle: self => {
                 gsap.to(bgOrangeRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.8, ease: "power2.inOut" });
+            }
+        });
+
+        // Border Continuity Logic for Sponsor Section (4 & 5)
+        // Sec 4: Hide bottom border to connect to 5
+        ScrollTrigger.create({
+            trigger: section4Ref.current,
+            start: "top center",
+            end: "bottom center",
+            onToggle: self => {
+                if (self.isActive) document.body.classList.add('hide-frame-bottom');
+                else document.body.classList.remove('hide-frame-bottom');
+            }
+        });
+
+        // Sec 5: Hide top border to connect to 4
+        ScrollTrigger.create({
+            trigger: section5Ref.current,
+            start: "top center",
+            end: "bottom center",
+            onToggle: self => {
+                if (self.isActive) document.body.classList.add('hide-frame-top');
+                else document.body.classList.remove('hide-frame-top');
             }
         });
 
