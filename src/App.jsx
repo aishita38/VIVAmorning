@@ -214,6 +214,8 @@ function App() {
     const lanternRightRef = useRef(null)
     const vogue3Ref = useRef(null) // For section6 hands
     const vogue4Ref = useRef(null) // For section6 hands
+    const lanternLeftSponsorRef = useRef(null)
+    const lanternRightSponsorRef = useRef(null)
     const rickshawLeftRef = useRef(null)
     const rickshawRightRef = useRef(null)
     const rickshawLeft7Ref = useRef(null) // For section7
@@ -333,14 +335,29 @@ function App() {
             });
         }
 
-        // Section 4 Banner - Stick and Fade
+        // Section 4 Banner and Lanterns - Stick and Fade (Sponsor Section)
         if (section4Ref.current) {
             gsap.set(banner4Ref.current, { opacity: 0 });
+            gsap.set([lanternLeftSponsorRef.current, lanternRightSponsorRef.current], { opacity: 0 });
+
+            // Banner Animation
             ScrollTrigger.create({
                 trigger: section4Ref.current,
                 start: "top 20%",
                 end: "bottom 20%",
                 onToggle: self => gsap.to(banner4Ref.current, { opacity: self.isActive ? 1 : 0, duration: 0.5, ease: "power2.inOut" })
+            });
+
+            // Lanterns Animation (Visible for Section 4 and 5)
+            ScrollTrigger.create({
+                trigger: section4Ref.current,
+                start: "top 20%",
+                endTrigger: section5Ref.current,
+                end: "bottom 20%",
+                onEnter: () => gsap.to([lanternLeftSponsorRef.current, lanternRightSponsorRef.current], { opacity: 1, duration: 0.5 }),
+                onLeave: () => gsap.to([lanternLeftSponsorRef.current, lanternRightSponsorRef.current], { opacity: 0, duration: 0.5 }),
+                onEnterBack: () => gsap.to([lanternLeftSponsorRef.current, lanternRightSponsorRef.current], { opacity: 1, duration: 0.5 }),
+                onLeaveBack: () => gsap.to([lanternLeftSponsorRef.current, lanternRightSponsorRef.current], { opacity: 0, duration: 0.5 }),
             });
         }
 
@@ -416,6 +433,17 @@ function App() {
             );
         }
 
+        // Section 7 Banner - Stick and Fade
+        if (section7Ref.current) {
+            gsap.set(banner7Ref.current, { opacity: 0 });
+            ScrollTrigger.create({
+                trigger: section7Ref.current,
+                start: "top 20%",
+                end: "bottom 20%",
+                onToggle: self => gsap.to(banner7Ref.current, { opacity: self.isActive ? 1 : 0, duration: 0.5, ease: "power2.inOut" })
+            });
+        }
+
         // Section 8 Banner and Vogue Hands
         if (section8Ref.current) {
             gsap.set(banner8Ref.current, { opacity: 0 });
@@ -453,13 +481,13 @@ function App() {
         gsap.set(bgPurpleRef.current, { opacity: 0, zIndex: 3 });
         gsap.set(bgSponsorRef.current, { opacity: 0, zIndex: 4 });
 
-        // Continuous Background Rotation
-        gsap.to([bgOrangeRef.current, bgBlueRef.current, bgPurpleRef.current, bgSponsorRef.current], {
-            rotation: 360,
-            duration: 60,
-            repeat: -1,
-            ease: "linear"
-        });
+        // Continuous Background Rotation - Disabled
+        // gsap.to([bgOrangeRef.current, bgBlueRef.current, bgPurpleRef.current, bgSponsorRef.current], {
+        //     rotation: 360,
+        //     duration: 60,
+        //     repeat: -1,
+        //     ease: "linear"
+        // });
 
         // Transition: Orange -> Blue (Section 1 to Section 2)
         ScrollTrigger.create({
@@ -532,7 +560,7 @@ function App() {
                 <div ref={bgOrangeRef} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-orange transition-opacity duration-0" />
                 <div ref={bgBlueRef} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-blue transition-opacity duration-0" />
                 <div ref={bgPurpleRef} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-purple transition-opacity duration-0" />
-                <div ref={bgSponsorRef} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-orange transition-opacity duration-0" />
+                <div ref={bgSponsorRef} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-blue transition-opacity duration-0" />
             </div>
 
             {/* FIXED BANNERS handled inside PageSection's vogueHands for better isolation */}
@@ -639,51 +667,6 @@ function App() {
             </PageSection>
 
             <PageSection
-                sectionRef={section4Ref}
-                theme="orange-theme"
-                bannerImage={sponsorBanner}
-                bannerAlt="Sponsorship Team"
-                showHeader={false}
-                vogueHands={
-                    <>
-                        <div ref={banner4Ref} className="fixed top-2 sm:top-4 md:top-8 left-1/2 -translate-x-1/2 z-[40] pointer-events-none opacity-0">
-                            <div className="swing-banner">
-                                <img src={sponsorBanner} alt="Sponsorship Team" className="h-[85px] sm:h-[110px] md:h-[140px] lg:h-[150px] xl:h-[160px] 2xl:h-[185px] w-auto" />
-                            </div>
-                        </div>
-                    </>
-                }
-            >
-                <div className="flex flex-col items-center w-full relative z-[2] mt-24 sm:mt-28 md:mt-32 lg:mt-40">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24 sm:gap-x-20 sm:gap-y-28 md:gap-x-24 md:gap-y-32 lg:gap-x-24 lg:gap-y-32 justify-items-center w-full max-w-[1200px] px-4">
-                        <PhotoCard imageUrl={memberImage} name="VIDIT SHARMA" role="SPONSORSHIP HEAD" size="small" />
-                        <PhotoCard imageUrl={memberImage} name="RUDRA BANERJEE" role="SPONSORSHIP HEAD" size="small" />
-                        <PhotoCard imageUrl={memberImage} name="ANURAG YADAV" role="SPONSORSHIP HEAD" size="small" />
-                    </div>
-                </div>
-            </PageSection>
-
-            <PageSection
-                sectionRef={section5Ref}
-                theme="orange-theme"
-                showHeader={false}
-            >
-                <div className="flex flex-col items-center w-full relative z-[2] mt-12 sm:mt-14 md:mt-16 lg:mt-20">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24 sm:gap-x-20 sm:gap-y-28 md:gap-x-24 md:gap-y-32 lg:gap-x-24 lg:gap-y-32 justify-items-center w-full max-w-[1200px] px-4">
-                        <PhotoCard imageUrl={memberImage} name="KARTIKEYA SINGH GAUR" role="SPONSORSHIP HEAD" size="small" />
-                        <PhotoCard imageUrl={memberImage} name="SAJAL JAGGI" role="SPONSORSHIP HEAD" size="small" />
-                        <PhotoCard imageUrl={memberImage} name="JAYESH JHAMNANI" role="SPONSORSHIP HEAD" size="small" />
-                    </div>
-
-                    <div className="mt-24 sm:mt-28 md:mt-32 lg:mt-40 text-center max-w-[90vw] px-4 mb-20">
-                        <p className="font-sans font-normal text-[#3d1c10] text-[0.7rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1rem] xl:text-[1.1rem] 2xl:text-[1.2rem] tracking-[0.05em] uppercase leading-relaxed max-w-[1000px] mx-auto opacity-90">
-                            TEAM MEMBERS - TEJAS MISHRA, AMRENDRA VIKRAM SINGH, SHUBH KAPOOR, AYUSH RAJ, SNEHIT RAJ, MUKUND MAHESHWARI, BHAVYA SARAN, HARSH VARDHAN THAKUR, HARSHIL AGARWAL, RITISH NAGPAL, AYUSH SAINI, YATISH SINGHAL, TANISHQ GANGWANI
-                        </p>
-                    </div>
-                </div>
-            </PageSection>
-
-            <PageSection
                 sectionRef={section6Ref}
                 theme="orange-theme"
                 bannerImage={developmentBanner}
@@ -738,6 +721,55 @@ function App() {
                     <div className="mt-20 sm:mt-24 md:mt-28 lg:mt-32 text-center max-w-[90vw] px-4 mb-20">
                         <p className="font-sans font-normal text-[#3d1c10] text-[0.7rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1rem] xl:text-[1.1rem] 2xl:text-[1.2rem] tracking-[0.05em] uppercase leading-relaxed max-w-[1000px] mx-auto opacity-90">
                             TEAM MEMBERS - SHUBHANSHU, DHANESHA, SAMKIT, PRATEEK, VINEET, DIVYANSH, ANKUR, BHAVYAM, CHIRAG, BHUPESH, GUNEET, ABDE, DIVYA, SAURAV, KARAN
+                        </p>
+                    </div>
+                </div>
+            </PageSection>
+
+            <PageSection
+                sectionRef={section4Ref}
+                theme="blue-theme"
+                bannerImage={sponsorBanner}
+                bannerAlt="Sponsorship Team"
+                showHeader={false}
+                vogueHands={
+                    <>
+                        <div ref={banner4Ref} className="fixed top-2 sm:top-4 md:top-8 left-1/2 -translate-x-1/2 z-[40] pointer-events-none opacity-0">
+                            <div className="swing-banner">
+                                <img src={sponsorBanner} alt="Sponsorship Team" className="h-[85px] sm:h-[110px] md:h-[140px] lg:h-[150px] xl:h-[160px] 2xl:h-[185px] w-auto" />
+                            </div>
+                        </div>
+                        <div className="fixed top-[20px] sm:top-[25px] md:top-[30px] lg:top-[40px] left-0 right-0 w-full px-5 sm:px-8 md:px-14 lg:px-20 xl:px-28 flex justify-between pointer-events-none z-30">
+                            <img ref={lanternLeftSponsorRef} src={lantern} className="lantern-swing h-[130px] sm:h-[170px] md:h-[210px] lg:h-[260px] xl:h-[300px] 2xl:h-[22vw] w-auto" alt="Lantern" />
+                            <img ref={lanternRightSponsorRef} src={lantern} className="lantern-swing h-[130px] sm:h-[170px] md:h-[210px] lg:h-[260px] xl:h-[300px] 2xl:h-[22vw] w-auto " alt="Lantern" />
+                        </div>
+                    </>
+                }
+            >
+                <div className="flex flex-col items-center w-full relative z-[2] mt-24 sm:mt-28 md:mt-32 lg:mt-40">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24 sm:gap-x-20 sm:gap-y-28 md:gap-x-24 md:gap-y-32 lg:gap-x-24 lg:gap-y-32 justify-items-center w-full max-w-[1200px] px-4">
+                        <PhotoCard imageUrl={memberImage} name="VIDIT SHARMA" role="SPONSORSHIP HEAD" size="small" />
+                        <PhotoCard imageUrl={memberImage} name="RUDRA BANERJEE" role="SPONSORSHIP HEAD" size="small" />
+                        <PhotoCard imageUrl={memberImage} name="ANURAG YADAV" role="SPONSORSHIP HEAD" size="small" />
+                    </div>
+                </div>
+            </PageSection>
+
+            <PageSection
+                sectionRef={section5Ref}
+                theme="blue-theme"
+                showHeader={false}
+            >
+                <div className="flex flex-col items-center w-full relative z-[2] mt-12 sm:mt-14 md:mt-16 lg:mt-20">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24 sm:gap-x-20 sm:gap-y-28 md:gap-x-24 md:gap-y-32 lg:gap-x-24 lg:gap-y-32 justify-items-center w-full max-w-[1200px] px-4">
+                        <PhotoCard imageUrl={memberImage} name="KARTIKEYA SINGH GAUR" role="SPONSORSHIP HEAD" size="small" />
+                        <PhotoCard imageUrl={memberImage} name="SAJAL JAGGI" role="SPONSORSHIP HEAD" size="small" />
+                        <PhotoCard imageUrl={memberImage} name="JAYESH JHAMNANI" role="SPONSORSHIP HEAD" size="small" />
+                    </div>
+
+                    <div className="mt-24 sm:mt-28 md:mt-32 lg:mt-40 text-center max-w-[90vw] px-4 mb-20">
+                        <p className="font-sans font-normal text-[#3d1c10] text-[0.7rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1rem] xl:text-[1.1rem] 2xl:text-[1.2rem] tracking-[0.05em] uppercase leading-relaxed max-w-[1000px] mx-auto opacity-90">
+                            TEAM MEMBERS - TEJAS MISHRA, AMRENDRA VIKRAM SINGH, SHUBH KAPOOR, AYUSH RAJ, SNEHIT RAJ, MUKUND MAHESHWARI, BHAVYA SARAN, HARSH VARDHAN THAKUR, HARSHIL AGARWAL, RITISH NAGPAL, AYUSH SAINI, YATISH SINGHAL, TANISHQ GANGWANI
                         </p>
                     </div>
                 </div>
