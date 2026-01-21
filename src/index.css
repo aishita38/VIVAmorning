@@ -29,12 +29,24 @@ html {
 
   body::after {
     content: '';
-    @apply fixed top-20 left-20 right-20 bottom-20 border-4 border-[var(--color-brand-border)] rounded-[100px] pointer-events-none z-[9999] transition-colors duration-300;
+    @apply fixed top-10 left-10 right-10 bottom-10 border-[6px] border-[var(--color-brand-border)] rounded-[80px] pointer-events-none z-[9999] transition-colors duration-300;
+  }
+
+  @media (max-width: 768px) {
+    body::after {
+      @apply top-6 left-6 right-6 bottom-6 border-[5px] rounded-[50px];
+    }
   }
 
   @media (max-width: 480px) {
     body::after {
-      @apply top-12 left-12 right-12 bottom-12 border-2 rounded-[50px];
+      @apply top-4 left-4 right-4 bottom-4 border-[4px] rounded-[30px];
+    }
+  }
+
+  @media (max-width: 360px) {
+    body::after {
+      @apply top-3 left-3 right-3 bottom-3 border-[3px] rounded-[20px];
     }
   }
 }
@@ -44,16 +56,16 @@ html {
     background:
       radial-gradient(circle at center, transparent 0%, rgba(93, 42, 28, 0.08) 100%),
       repeating-conic-gradient(from 0deg at 50% 50%,
-        var(--color-brand-orange-dark) 0deg 15deg,
-        var(--color-brand-orange-light) 15deg 30deg);
+        var(--color-brand-orange-dark) 0deg 10deg,
+        var(--color-brand-orange-light) 10deg 20deg);
   }
 
   .bg-gradient-blue {
     background:
       radial-gradient(circle at center, transparent 0%, rgba(0, 102, 204, 0.08) 100%),
       repeating-conic-gradient(from 0deg at 50% 50%,
-        var(--color-brand-blue-dark) 0deg 15deg,
-        var(--color-brand-blue-light) 15deg 30deg);
+        var(--color-brand-blue-dark) 0deg 10deg,
+        var(--color-brand-blue-light) 10deg 20deg);
   }
 
   .bg-gradient-purple {
@@ -161,28 +173,33 @@ html {
 
   .label-pill-ticket {
     background-color: #0099bc;
-    border-radius: 70px;
+    border-radius: 60px;
     position: relative;
-    padding: 0.45rem 0.8rem 0.35rem;
+    padding: 0.4rem 0.7rem 0.3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     border: none;
-    width: 240px;
+    width: 210px;
     gap: 1px;
+  }
+
+  .label-pill-compact {
+    width: 175px !important;
+    padding: 0.35rem 0.6rem 0.25rem !important;
   }
 
   .label-pill-ticket::before,
   .label-pill-ticket::after {
     content: '';
     position: absolute;
-    left: 15px;
-    right: 15px;
-    height: 5px;
-    background-image: radial-gradient(circle, white 1.3px, transparent 1.6px);
-    background-size: 8px 5px;
+    left: 14px;
+    right: 14px;
+    height: 4px;
+    background-image: radial-gradient(circle, white 1.2px, transparent 1.5px);
+    background-size: 7px 4px;
     background-repeat: repeat-x;
   }
 
@@ -196,25 +213,96 @@ html {
 
   @media (max-width: 768px) {
     .label-pill-ticket {
-      padding: 0.35rem 0.6rem 0.25rem;
-      width: 170px;
+      padding: 0.3rem 0.55rem 0.2rem;
+      width: 150px;
+    }
+
+    .label-pill-compact {
+      width: 125px !important;
+      padding: 0.25rem 0.45rem 0.15rem !important;
     }
 
     .label-pill-ticket::before,
     .label-pill-ticket::after {
-      height: 4px;
-      background-image: radial-gradient(circle, white 1.1px, transparent 1.4px);
-      background-size: 7px 4px;
-      left: 12px;
-      right: 12px;
+      height: 3px;
+      background-image: radial-gradient(circle, white 1px, transparent 1.3px);
+      background-size: 6px 3px;
+      left: 10px;
+      right: 10px;
     }
 
     .label-pill-ticket::before {
-      top: 5px;
+      top: 4px;
     }
 
     .label-pill-ticket::after {
-      bottom: 5px;
+      bottom: 4px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .label-pill-ticket {
+      padding: 0.25rem 0.45rem 0.15rem;
+      width: 130px;
+      gap: 0px;
+    }
+
+    .label-pill-compact {
+      width: 110px !important;
+    }
+
+    .label-pill-ticket::before,
+    .label-pill-ticket::after {
+      height: 2px;
+      background-image: radial-gradient(circle, white 0.8px, transparent 1px);
+      background-size: 5px 2px;
+      left: 8px;
+      right: 8px;
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 767px) {
+    .label-pill-ticket {
+      width: 165px;
+      padding: 0.35rem 0.55rem 0.25rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 900px) {
+    .label-pill-ticket {
+      width: 175px;
+      padding: 0.35rem 0.6rem 0.25rem;
+    }
+  }
+
+  @media (min-width: 901px) and (max-width: 1023px) {
+    .label-pill-ticket {
+      width: 140px;
+      padding: 0.3rem 0.45rem 0.2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .label-pill-ticket {
+      width: 13vw;
+      padding: 0.5rem 0.8rem 0.4rem;
+    }
+
+    .label-pill-compact {
+      width: 10vw !important;
+      padding: 0.4rem 0.6rem 0.3rem !important;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .label-pill-ticket {
+      width: 16vw;
+      padding: 0.6rem 0.9rem 0.5rem;
+    }
+
+    .label-pill-compact {
+      width: 13vw !important;
+      padding: 0.5rem 0.75rem 0.4rem !important;
     }
   }
 }
