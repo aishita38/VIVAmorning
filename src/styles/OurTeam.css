@@ -76,9 +76,7 @@ html {
                 var(--color-brand-purple-light) 10deg 20deg);
     }
 
-    .orange-theme {
-        /* Background handled by fixed layer */
-    }
+    .orange-theme {}
 
     .blue-theme {
         /* Background handled by fixed layer */
@@ -156,7 +154,7 @@ html {
     }
 }
 
-/* ---------Stamp border ----------- */
+
 @layer utilities {
     .stamp-border {
         background-color: var(--color-v-cream);
@@ -417,7 +415,7 @@ html {
         }
     }
 
-    /* Compact Overrides (must be after or more specific than general purple rules) */
+
     .label-pill-ticket-purple.label-pill-compact {
         width: 175px;
         padding: 0.35rem 0.6rem 0.25rem !important;

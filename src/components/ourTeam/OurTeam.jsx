@@ -6,190 +6,22 @@ import {
     vivaLogo,
     mentorsBanner,
     festheadBanner,
-    leftBorder,
-    rightBorder,
     lantern,
     vogue1,
     vogue2,
     rickshaw,
     culturalSign,
     memberImage,
-    instaIcon,
-    mailIcon,
     sponsorBanner,
     developmentBanner,
     creativeBanner,
     prEventsBanner
 } from '../../assets/ourTeam'
+import TeamCard from './TeamCard'
+import PhotoCard from './PhotoCard'
+import CulturalCouncilCard from './CulturalCouncilCard'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const TeamCard = ({ imageUrl, footerText }) => {
-    return (
-        <div className="flex flex-col items-center gap-6 sm:gap-8 md:gap-10 lg:gap-[40px]">
-            <div className="relative flex items-center bg-white p-[1.5px] sm:p-[2.5px] md:p-[3px] rounded-[15px] sm:rounded-[20px] md:rounded-[25px] shadow-xl">
-                <img src={leftBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -left-3 sm:-left-4 md:-left-5 lg:-left-[20px]" alt="" />
-                <div className="w-[70vw] sm:w-[75vw] md:w-[65vw] lg:w-[540px] 2xl:w-[35vw] aspect-[16/9] overflow-hidden relative rounded-[13px] sm:rounded-[18px] md:rounded-[23px]">
-                    <img src={imageUrl} alt="Team Member" className="w-full h-full object-cover" />
-                </div>
-                <img src={rightBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -right-3 sm:-right-4 md:-right-5 lg:-right-[20px]" alt="" />
-            </div>
-            {footerText && (
-                <div className="font-sans font-normal text-[#213547] text-[0.75rem] sm:text-[0.85rem] md:text-sm lg:text-[1rem] 2xl:text-[1.2rem] tracking-wide sm:tracking-wider text-center uppercase max-w-[95vw] px-2">
-                    {footerText}
-                </div>
-            )}
-        </div>
-    )
-}
-
-const PhotoCard = ({ imageUrl, name, role, size = "normal" }) => {
-    const isSmall = size === "small";
-    const cardRef = useRef(null);
-    const [labelWidth, setLabelWidth] = useState('auto');
-
-    const imageWidthClasses = isSmall
-        ? "w-[85px] sm:w-[105px] md:w-[105px] lg:w-[125px] xl:w-[12vw] 2xl:w-[14vw]"
-        : "w-[100px] sm:w-[130px] md:w-[130px] lg:w-[155px] xl:w-[15vw] 2xl:w-[18vw]";
-
-    // Bottom offset
-    const bottomClasses = isSmall
-        ? "-bottom-[38px] sm:-bottom-[50px] md:-bottom-[45px] lg:-bottom-[50px] xl:-bottom-[75px] 2xl:-bottom-[95px]"
-        : "-bottom-[45px] sm:-bottom-[58px] md:-bottom-[54px] lg:-bottom-[58px] xl:-bottom-[90px] 2xl:-bottom-[115px]";
-
-    // Icon size
-    const iconWidthClasses = isSmall
-        ? "w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-[2.5vw] xl:h-[2.5vw] 2xl:w-[3vw] 2xl:h-[3vw]"
-        : "w-6 h-6 sm:w-8 sm:h-8 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-[3.2vw] xl:h-[3.2vw] 2xl:w-[3.8vw] 2xl:h-[3.8vw]";
-
-    // Text sizes
-    const nameTextSize = isSmall
-        ? "text-[0.55rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9vw] 2xl:text-[1.1vw]"
-        : "text-[0.65rem] sm:text-[0.7rem] md:text-[0.85rem] lg:text-[1rem] xl:text-[1.1vw] 2xl:text-[1.3vw]";
-
-    const roleTextSize = isSmall
-        ? "text-[0.45rem] sm:text-[0.5rem] md:text-[0.6rem] lg:text-[0.7rem] xl:text-[0.7vw] 2xl:text-[0.9vw]"
-        : "text-[0.55rem] sm:text-[0.6rem] md:text-[0.75rem] lg:text-[0.85rem] xl:text-[0.9vw] 2xl:text-[1.1vw]";
-
-    useLayoutEffect(() => {
-        if (cardRef.current) {
-            setLabelWidth(cardRef.current.offsetWidth * 1.2);
-        }
-        const handleResize = () => {
-            if (cardRef.current) {
-                setLabelWidth(cardRef.current.offsetWidth * 1.2);
-            }
-        };
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return (
-        <div className="relative flex flex-col items-center">
-            <div ref={cardRef} className={`relative flex items-center bg-white p-[1.5px] sm:p-[2px] md:p-[2.5px] rounded-[12px] sm:rounded-[15px] md:rounded-[18px] shadow-xl transform transition-transform hover:scale-105`}>
-                <img src={leftBorder} className="h-[96%] absolute top-[-3%] w-auto z-[2] pointer-events-none -left-3 sm:-left-4 md:-left-5 lg:-left-[24px]" alt="" />
-                <div className={`${imageWidthClasses} aspect-[16/24] overflow-hidden relative rounded-[10.5px] sm:rounded-[13px] md:rounded-[16px]`}>
-                    <img src={imageUrl} alt={name || "Team Member"} className="w-full h-full object-cover" />
-                </div>
-                <img src={rightBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -right-3 sm:-right-4 md:-right-5 lg:-right-[24px]" alt="" />
-            </div>
-
-            {(name || role) && (
-                <div className={`absolute ${bottomClasses} flex items-center gap-0.5 sm:gap-1 md:gap-1.5 z-10`}>
-                    {/* Left Icon */}
-                    <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
-                        <img src={instaIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Instagram" />
-                    </a>
-
-                    {/* Main Label Pill */}
-                    <div
-                        className={`label-pill-ticket ${isSmall ? 'label-pill-compact' : ''}`}
-                        style={{ width: labelWidth }}
-                    >
-                        <div className={`${nameTextSize} text-white font-semibold tracking-wider leading-[1.1] uppercase font-sans whitespace-nowrap`}>
-                            {name}
-                        </div>
-                        <div className={`${roleTextSize} text-white/95 font-normal tracking-[0.12em] uppercase font-sans leading-tight text-center`}>
-                            {role}
-                        </div>
-                    </div>
-
-                    {/* Right Icon */}
-                    <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
-                        <img src={mailIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Email" />
-                    </a>
-                </div>
-            )}
-        </div>
-    )
-}
-
-const CulturalCouncilCard = ({ imageUrl, name, role }) => {
-    const cardRef = useRef(null);
-    const [labelWidth, setLabelWidth] = useState('auto');
-
-    // Matching EXACTLY with PhotoCard "small" size logic
-    const imageWidthClasses = "w-[85px] sm:w-[105px] md:w-[105px] lg:w-[125px] xl:w-[12vw] 2xl:w-[14vw]";
-
-    // Bottom offset matching PhotoCard "small"
-    const bottomClasses = "-bottom-[38px] sm:-bottom-[50px] md:-bottom-[45px] lg:-bottom-[50px] xl:-bottom-[75px] 2xl:-bottom-[95px]";
-
-    // Icon size matching PhotoCard "small"
-    const iconWidthClasses = "w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-[2.5vw] xl:h-[2.5vw] 2xl:w-[3vw] 2xl:h-[3vw]";
-
-    // Text sizes matching PhotoCard "small"
-    const nameTextSize = "text-[0.55rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9vw] 2xl:text-[1.1vw]";
-    const roleTextSize = "text-[0.45rem] sm:text-[0.5rem] md:text-[0.6rem] lg:text-[0.7rem] xl:text-[0.7vw] 2xl:text-[0.9vw]";
-
-    useLayoutEffect(() => {
-        if (cardRef.current) {
-            setLabelWidth(cardRef.current.offsetWidth * 1.2);
-        }
-        const handleResize = () => {
-            if (cardRef.current) {
-                setLabelWidth(cardRef.current.offsetWidth * 1.2);
-            }
-        };
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return (
-        <div className="relative flex flex-col items-center">
-            <div ref={cardRef} className="relative flex items-center bg-white p-[1.5px] sm:p-[2px] md:p-[2.5px] rounded-[12px] sm:rounded-[15px] md:rounded-[18px] shadow-xl transition-transform hover:scale-105 duration-300">
-                <img src={leftBorder} className="h-[96%] absolute top-[-3%] w-auto z-[2] pointer-events-none -left-3 sm:-left-4 md:-left-5 lg:-left-[24px]" alt="" />
-                {/* Changed aspect ratio from 22/26 (approx 0.85) to 16/24 (approx 0.67) to match PhotoCard dimensions exactly */}
-                <div className={`${imageWidthClasses} aspect-[16/24] overflow-hidden relative rounded-[10.5px] sm:rounded-[13px] md:rounded-[16px]`}>
-                    <img src={imageUrl} alt={name || "Cultural Council Member"} className="w-full h-full object-cover" />
-                </div>
-                <img src={rightBorder} className="h-[106%] absolute top-[-3%] w-auto z-[2] pointer-events-none -right-3 sm:-right-4 md:-right-5 lg:-right-[24px]" alt="" />
-            </div>
-
-            <div className={`absolute ${bottomClasses} flex items-center gap-0.5 sm:gap-1 md:gap-1.5 z-10`}>
-                <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
-                    <img src={instaIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Instagram" />
-                </a>
-
-                {/* Using label-pill-compact logic by adding a specific class modifier or just ensuring size matches */}
-                <div
-                    className="label-pill-ticket-purple label-pill-compact"
-                    style={{ width: labelWidth }}
-                >
-                    <div className={`${nameTextSize} text-white font-semibold tracking-wider leading-[1.1] uppercase font-sans whitespace-nowrap`}>
-                        {name}
-                    </div>
-                    <div className={`${roleTextSize} text-white/95 font-normal tracking-[0.12em] uppercase font-sans leading-tight text-center`}>
-                        {role}
-                    </div>
-                </div>
-
-                <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
-                    <img src={mailIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Email" />
-                </a>
-            </div>
-        </div>
-    )
-}
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false)
@@ -215,7 +47,6 @@ const Header = () => {
                     <img src={vivaLogo} alt="Vivacity'26 Logo" className="h-[40px] sm:h-[50px] md:h-[70px] lg:h-[90px] w-auto transition-all" />
                 </div>
 
-                {/* Desktop Nav */}
                 <nav className="hidden min-[1100px]:flex items-center gap-6 xl:gap-10">
                     <a href="#home" className="no-underline text-[#3d1c10] font-semibold text-[0.95rem] xl:text-[1.15rem] tracking-wider hover:text-[#9E5D47] transition-colors">HOME</a>
                     <a href="#events" className="no-underline text-[#3d1c10] font-semibold text-[0.95rem] xl:text-[1.15rem] tracking-wider hover:text-[#9E5D47] transition-colors">EVENTS</a>
@@ -223,7 +54,6 @@ const Header = () => {
                     <a href="#team" className="no-underline text-[#3d1c10] font-semibold text-[0.95rem] xl:text-[1.15rem] tracking-wider hover:text-[#9E5D47] transition-colors">OUR TEAM</a>
                 </nav>
 
-                {/* Mobile Hamburger */}
                 <div className="min-[1100px]:hidden z-50 relative">
                     <button onClick={() => setMenuOpen(!menuOpen)} className="flex flex-col gap-1.5 p-2 focus:outline-none">
                         <span className={`block w-6 h-0.5 bg-[#3d1c10] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
@@ -233,7 +63,6 @@ const Header = () => {
                 </div>
             </header>
 
-            {/* Mobile Menu Overlay */}
             <div ref={menuRef} className="fixed inset-0 bg-[#f7d0ab] z-40 flex flex-col justify-center items-center min-[1100px]:hidden translate-x-full">
                 <nav ref={linksRef} className="flex flex-col gap-8 text-center">
                     <a href="#home" onClick={() => setMenuOpen(false)} className="text-[#3d1c10] font-bold text-2xl tracking-widest hover:text-[#9E5D47] transition-colors">HOME</a>
@@ -249,14 +78,13 @@ const Header = () => {
 const PageSection = ({ theme, bannerImage, bannerAlt, children, showHeader, vogueHands, sectionRef }) => {
     return (
         <section ref={sectionRef} className={`w-full min-h-screen flex flex-col items-center px-3 sm:px-4 md:px-12 lg:px-16 pb-12 sm:pb-14 md:pb-16 relative z-10 overflow-hidden ${theme}`}>
-            {/* Absolute decorations (Hands) go here to ignore section padding */}
             {vogueHands}
 
             {showHeader && (
                 <Header />
             )}
 
-            {/* Banner rendering removed from here to be handled by fixed container in App */}
+
 
             <div className="flex-1 flex flex-col justify-center items-center w-full relative z-20 pt-12">
                 {children}
@@ -269,46 +97,42 @@ function OurTeam() {
     const vogue1Ref = useRef(null)
     const vogue2Ref = useRef(null)
 
-    // Refs for sections to trigger background changes
     const section1Ref = useRef(null)
     const section2Ref = useRef(null)
     const section3Ref = useRef(null)
     const section4Ref = useRef(null)
     const section5Ref = useRef(null)
     const section6Ref = useRef(null)
-    const section7Ref = useRef(null) // Creative Team section
-    const section8Ref = useRef(null) // PR Events Team section
+    const section7Ref = useRef(null)
+    const section8Ref = useRef(null)
 
-    // Refs for background layers
     const bgOrangeRef = useRef(null)
     const bgBlueRef = useRef(null)
     const bgPurpleRef = useRef(null)
     const bgSponsorRef = useRef(null)
 
-    // Refs for animations
     const lanternLeftRef = useRef(null)
     const lanternRightRef = useRef(null)
-    const vogue3Ref = useRef(null) // For section6 hands
-    const vogue4Ref = useRef(null) // For section6 hands
+    const vogue3Ref = useRef(null)
+    const vogue4Ref = useRef(null)
     const lanternLeftSponsorRef = useRef(null)
     const lanternRightSponsorRef = useRef(null)
     const rickshawLeftRef = useRef(null)
     const rickshawRightRef = useRef(null)
-    const rickshawLeft7Ref = useRef(null) // For section7
-    const rickshawRight7Ref = useRef(null) // For section7
-    const vogue5Ref = useRef(null) // For section8 hands
-    const vogue6Ref = useRef(null) // For section8 hands
+    const rickshawLeft7Ref = useRef(null)
+    const rickshawRight7Ref = useRef(null)
+    const vogue5Ref = useRef(null)
+    const vogue6Ref = useRef(null)
     const banner1Ref = useRef(null)
     const banner2Ref = useRef(null)
     const banner3Ref = useRef(null)
     const banner4Ref = useRef(null)
-    const banner6Ref = useRef(null) // For section6
-    const banner7Ref = useRef(null) // For section7
-    const banner8Ref = useRef(null) // For section8
+    const banner6Ref = useRef(null)
+    const banner7Ref = useRef(null)
+    const banner8Ref = useRef(null)
 
     useLayoutEffect(() => {
-        // 0. Hands Entrance Animation (On Load)
-        // Hands start hidden and fade/slide in when the page loads
+
         if (vogue1Ref.current && vogue2Ref.current) {
             gsap.fromTo([vogue1Ref.current, vogue2Ref.current],
                 { y: 100, opacity: 0 },
@@ -316,10 +140,8 @@ function OurTeam() {
             );
         }
 
-        // 1. Hands Exit Animation (Scroll-linked)
-        // Moves hands horizontally out of the viewport as user scrolls
+
         if (vogue1Ref.current && vogue2Ref.current && section1Ref.current) {
-            // Calculate responsive movement based on viewport width
             const getHandMovement = () => {
                 const vw = window.innerWidth;
                 if (vw < 480) return 300;
@@ -334,12 +156,12 @@ function OurTeam() {
                 vogue1Ref.current,
                 { x: 0 },
                 {
-                    x: -handMovement, // slides fully out to the left
+                    x: -handMovement,
                     ease: "none",
                     scrollTrigger: {
                         trigger: section1Ref.current,
-                        start: "bottom bottom", // start ONLY when leaving section 1
-                        end: "bottom top",      // fully gone when section ends
+                        start: "bottom bottom",
+                        end: "bottom top",
                         scrub: true
                     }
                 }
@@ -351,10 +173,10 @@ function OurTeam() {
                 vogue2Ref.current,
                 { x: 0 },
                 {
-                    x: handMovement, // slides fully out to the right
+                    x: handMovement,
                     ease: "none",
                     scrollTrigger: {
-                        trigger: section1Ref.current, // ✅ SAME trigger as vogue1
+                        trigger: section1Ref.current,
                         start: "bottom bottom",
                         end: "bottom top",
                         scrub: true
@@ -364,9 +186,7 @@ function OurTeam() {
 
         }
 
-        // 2. Section 2 Entrance Animations (Lanterns & Banner)
         if (section2Ref.current) {
-            // Lanterns - Stick to top and fade in
             gsap.set([lanternLeftRef.current, lanternRightRef.current], { opacity: 0 });
 
             ScrollTrigger.create({
@@ -379,7 +199,7 @@ function OurTeam() {
                 onLeaveBack: () => gsap.to([lanternLeftRef.current, lanternRightRef.current], { opacity: 0, duration: 0.5 }),
             });
 
-            // Section 2 Banner - Stick and Fade
+
             gsap.set(banner2Ref.current, { opacity: 0 });
             ScrollTrigger.create({
                 trigger: section2Ref.current,
@@ -389,7 +209,7 @@ function OurTeam() {
             });
         }
 
-        // Section 1 Banner - Stick and Fade
+
         if (section1Ref.current) {
             gsap.set(banner1Ref.current, { opacity: 1 });
             ScrollTrigger.create({
@@ -400,7 +220,7 @@ function OurTeam() {
             });
         }
 
-        // Section 3 Banner - Stick and Fade
+
         if (section3Ref.current) {
             gsap.set(banner3Ref.current, { opacity: 0 });
             ScrollTrigger.create({
@@ -411,12 +231,12 @@ function OurTeam() {
             });
         }
 
-        // Section 4 Banner and Lanterns - Stick and Fade (Sponsor Section)
+
         if (section4Ref.current) {
             gsap.set(banner4Ref.current, { opacity: 0 });
             gsap.set([lanternLeftSponsorRef.current, lanternRightSponsorRef.current], { opacity: 0 });
 
-            // Banner Animation
+
             ScrollTrigger.create({
                 trigger: section4Ref.current,
                 start: "top 20%",
@@ -424,7 +244,7 @@ function OurTeam() {
                 onToggle: self => gsap.to(banner4Ref.current, { opacity: self.isActive ? 1 : 0, duration: 0.5, ease: "power2.inOut" })
             });
 
-            // Lanterns Animation (Visible only for Section 4)
+
             ScrollTrigger.create({
                 trigger: section4Ref.current,
                 start: "top 20%",
@@ -436,7 +256,7 @@ function OurTeam() {
             });
         }
 
-        // Section 6 Banner and Vogue Hands - Stick and Fade
+
         if (section6Ref.current) {
             gsap.set(banner6Ref.current, { opacity: 0 });
             gsap.set([vogue3Ref.current, vogue4Ref.current], { opacity: 0, y: 100 });
@@ -464,10 +284,7 @@ function OurTeam() {
             });
         }
 
-        // 3. Rickshaw Horizontal Full-Width Animation
-        // Rickshaws move purely horizontally from one side to the other at the bottom of the screen
         if (rickshawLeftRef.current && rickshawRightRef.current && section3Ref.current) {
-            // Calculate responsive movement based on viewport width
             const getResponsiveMovement = () => {
                 const vw = window.innerWidth;
                 if (vw < 480) return { start: -150, end: vw - 250 };
@@ -477,7 +294,7 @@ function OurTeam() {
 
             const movement = getResponsiveMovement();
 
-            // Left Rickshaw: Starts Left -> Goes Right across full width
+
             gsap.fromTo(rickshawLeftRef.current,
                 { x: movement.start },
                 {
@@ -485,14 +302,14 @@ function OurTeam() {
                     ease: "none",
                     scrollTrigger: {
                         trigger: section3Ref.current,
-                        start: "top bottom", // Start when section enters
-                        end: "bottom bottom", // Finish when section is fully visible
-                        scrub: 5, // Reduced to 5 for faster motion
+                        start: "top bottom",
+                        end: "bottom bottom",
+                        scrub: 5,
                     }
                 }
             );
 
-            // Right Rickshaw: Starts Right -> Goes Left across full width
+
             gsap.fromTo(rickshawRightRef.current,
                 { x: -movement.start },
                 {
@@ -502,13 +319,13 @@ function OurTeam() {
                         trigger: section3Ref.current,
                         start: "top bottom",
                         end: "bottom bottom",
-                        scrub: 5, // Reduced to 5 for faster motion
+                        scrub: 5,
                     }
                 }
             );
         }
 
-        // Section 7 Banner - Stick and Fade
+
         if (section7Ref.current) {
             gsap.set(banner7Ref.current, { opacity: 0 });
             ScrollTrigger.create({
@@ -519,7 +336,7 @@ function OurTeam() {
             });
         }
 
-        // Section 8 Banner and Vogue Hands
+
         if (section8Ref.current) {
             gsap.set(banner8Ref.current, { opacity: 0 });
             gsap.set([vogue5Ref.current, vogue6Ref.current], { opacity: 0, y: 100 });
@@ -547,33 +364,20 @@ function OurTeam() {
             });
         }
 
-        // 4. Background Transition Logic
-        // Create a timeline that crossfades backgrounds based on scroll position
-
-        // Initial State
         gsap.set(bgOrangeRef.current, { opacity: 1, zIndex: 1 });
         gsap.set(bgBlueRef.current, { opacity: 0, zIndex: 2 });
         gsap.set(bgPurpleRef.current, { opacity: 0, zIndex: 3 });
         gsap.set(bgSponsorRef.current, { opacity: 0, zIndex: 4 });
 
-        // Continuous Background Rotation - Disabled
-        // gsap.to([bgOrangeRef.current, bgBlueRef.current, bgPurpleRef.current, bgSponsorRef.current], {
-        //     rotation: 360,
-        //     duration: 60,
-        //     repeat: -1,
-        //     ease: "linear"
-        // });
-
-        // Transition: Orange -> Blue (Section 1 to Section 2)
         ScrollTrigger.create({
             trigger: section2Ref.current,
-            start: "top 50%", // Threshold to switch background
+            start: "top 50%",
             onToggle: self => {
                 gsap.to(bgBlueRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.8, ease: "power2.inOut" });
             }
         });
 
-        // Transition: Blue -> Purple (Section 2 to Section 3)
+
         ScrollTrigger.create({
             trigger: section3Ref.current,
             start: "top 50%",
@@ -582,7 +386,7 @@ function OurTeam() {
             }
         });
 
-        // Transition: Purple -> Sponsor (Section 3 to Sections 4 & 5)
+
         ScrollTrigger.create({
             trigger: section4Ref.current,
             start: "top 50%",
@@ -593,7 +397,7 @@ function OurTeam() {
             }
         });
 
-        // Transition: -> Purple again (Section 7)
+
         ScrollTrigger.create({
             trigger: section7Ref.current,
             start: "top 50%",
@@ -602,13 +406,6 @@ function OurTeam() {
             }
         });
 
-        // Transition: -> Orange again (Section 8)
-        // Removed unnecessary trigger that was hiding the base orange layer. 
-        // Since Orange is z-index 1 (bottom), fading out the upper layers (purple from Sec 7) 
-        // automatically reveals the Orange background.
-
-        // Border Continuity Logic for Sponsor Section (4 & 5)
-        // Sec 4: Hide bottom border to connect to 5
         ScrollTrigger.create({
             trigger: section4Ref.current,
             start: "top center",
@@ -619,7 +416,6 @@ function OurTeam() {
             }
         });
 
-        // Sec 5: Hide top border to connect to 4
         ScrollTrigger.create({
             trigger: section5Ref.current,
             start: "top center",
@@ -635,7 +431,6 @@ function OurTeam() {
         }
     }, [])
 
-    // Add resize listener to refresh ScrollTrigger on viewport changes
     useLayoutEffect(() => {
         const handleResize = () => {
             ScrollTrigger.refresh()
@@ -648,8 +443,6 @@ function OurTeam() {
 
     return (
         <main className="w-full relative">
-            {/* FIXED BACKGROUND LAYERS - z-0 to sit above body bg but behind content */}
-            {/* FIXED BACKGROUND LAYERS - z-0 to sit above body bg but behind content */}
             <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
                 <div ref={bgOrangeRef} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-orange transition-opacity duration-0" />
                 <div ref={bgBlueRef} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-blue transition-opacity duration-0" />
@@ -657,11 +450,9 @@ function OurTeam() {
                 <div ref={bgSponsorRef} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vmax] h-[200vmax] bg-gradient-blue transition-opacity duration-0" />
             </div>
 
-            {/* FIXED BANNERS handled inside PageSection's vogueHands for better isolation */}
-
             <PageSection
                 sectionRef={section1Ref}
-                theme="orange-theme" // CSS class now just handles non-bg styles if any
+                theme="orange-theme"
                 bannerImage={mentorsBanner}
                 bannerAlt="Our Mentors"
                 showHeader={true}
@@ -753,7 +544,7 @@ function OurTeam() {
                     <CulturalCouncilCard imageUrl={memberImage} name="TANMAY JAIN" role="FINANCE CONVENOR" />
                 </div>
 
-                {/* Updated: Remove horizontal padding (px-0) and adjusted vertical position */}
+
                 <div className="absolute bottom-[-4%] left-6 sm:left-10 md:left-14 lg:left-20 right-6 sm:right-10 md:right-14 lg:right-20 w-auto flex justify-between items-end pointer-events-none z-10">
                     <img ref={rickshawLeftRef} src={rickshaw} style={{ transform: "scaleX(-1)" }} className="h-[60px] sm:h-[75px] md:h-[100px] lg:h-[110px] w-auto drop-shadow-xl transition-all" alt="Rickshaw" />
                     <img ref={rickshawRightRef} src={rickshaw} className="h-[60px] sm:h-[75px] md:h-[100px] lg:h-[110px] w-auto drop-shadow-xl transform transition-all" alt="Rickshaw" />
