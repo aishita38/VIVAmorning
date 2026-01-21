@@ -1,10 +1,10 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import {
     leftBorder,
-    rightBorder,
-    instaIcon,
-    mailIcon
+    rightBorder
 } from '../../assets/ourTeam'
+import purpleInsta from '../../assets/ourTeam/purple_insta.png'
+import purpleGmail from '../../assets/ourTeam/purple_gmail.png'
 
 const CulturalCouncilCard = ({ imageUrl, name, role }) => {
     const cardRef = useRef(null);
@@ -44,7 +44,7 @@ const CulturalCouncilCard = ({ imageUrl, name, role }) => {
 
             <div className={`absolute ${bottomClasses} flex items-center gap-0.5 sm:gap-1 md:gap-1.5 z-10`}>
                 <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
-                    <img src={instaIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Instagram" />
+                    <img src={purpleInsta} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Instagram" />
                 </a>
 
                 <div
@@ -60,7 +60,7 @@ const CulturalCouncilCard = ({ imageUrl, name, role }) => {
                 </div>
 
                 <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
-                    <img src={mailIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Email" />
+                    <img src={purpleGmail} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Email" />
                 </a>
             </div>
         </div>

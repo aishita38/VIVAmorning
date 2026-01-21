@@ -163,9 +163,9 @@ export const getSections = (refs) => {
             content: (
                 <div className="flex flex-col items-center w-full relative z-[2] mt-24 sm:mt-28 md:mt-32 lg:mt-40">
                     <div className="flex flex-col md:flex-row gap-16 sm:gap-24 md:gap-16 lg:gap-32 xl:gap-32 justify-center items-center">
-                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400&auto=format&fit=crop" name="KANISHQ SINGHAL" role="GENERAL SECRETARY" size="small" />
-                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" name="ISHITA KHANDELWAL" role="ASSOCIATE G. SEC" size="small" />
-                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop" name="TANMAY JAIN" role="FINANCE CONVENOR" size="small" />
+                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400&auto=format&fit=crop" name="KANISHQ SINGHAL" role="GENERAL SECRETARY" size="small" theme="orange" />
+                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" name="ISHITA KHANDELWAL" role="ASSOCIATE G. SEC" size="small" theme="orange" />
+                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop" name="TANMAY JAIN" role="FINANCE CONVENOR" size="small" theme="orange" />
                     </div>
                     <div className="mt-20 sm:mt-24 md:mt-28 lg:mt-32 text-center max-w-[90vw] px-4 mb-20">
                         <p className="font-sans font-normal text-[#3d1c10] text-[0.7rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1rem] xl:text-[1.1rem] 2xl:text-[1.2rem] tracking-[0.05em] uppercase leading-relaxed max-w-[1000px] mx-auto opacity-90">
@@ -245,10 +245,10 @@ export const getSections = (refs) => {
                 <>
                     <div className="flex flex-col items-center w-full relative z-[2] mt-24 sm:mt-28 md:mt-32 lg:mt-40">
                         <div className="flex flex-col md:flex-row flex-wrap md:flex-nowrap w-full gap-4 sm:gap-6 md:gap-8 justify-evenly items-center px-4">
-                            <PhotoCard imageUrl="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop" name="RISHABH SRIVASTAVA" role="CREATIVE HEAD" size="small" />
-                            <PhotoCard imageUrl="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?q=80&w=400&auto=format&fit=crop" name="ADITYA MEHTA" role="CREATIVE HEAD" size="small" />
-                            <PhotoCard imageUrl="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?q=80&w=400&auto=format&fit=crop" name="PRASOON AGARWAL" role="CREATIVE HEAD" size="small" />
-                            <PhotoCard imageUrl="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?q=80&w=400&auto=format&fit=crop" name="KRISHNA GOPAL RATHI" role="CREATIVE HEAD" size="small" />
+                            <PhotoCard imageUrl="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop" name="RISHABH SRIVASTAVA" role="CREATIVE HEAD" size="small" theme="purple" />
+                            <PhotoCard imageUrl="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?q=80&w=400&auto=format&fit=crop" name="ADITYA MEHTA" role="CREATIVE HEAD" size="small" theme="purple" />
+                            <PhotoCard imageUrl="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?q=80&w=400&auto=format&fit=crop" name="PRASOON AGARWAL" role="CREATIVE HEAD" size="small" theme="purple" />
+                            <PhotoCard imageUrl="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?q=80&w=400&auto=format&fit=crop" name="KRISHNA GOPAL RATHI" role="CREATIVE HEAD" size="small" theme="purple" />
                         </div>
                         <div className="mt-20 sm:mt-24 md:mt-28 lg:mt-32 text-center max-w-[90vw] px-4 mb-20">
                             <p className="font-sans font-normal text-white text-[0.7rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1rem] xl:text-[1.1rem] 2xl:text-[1.2rem] tracking-[0.05em] uppercase leading-relaxed max-w-[1000px] mx-auto opacity-90">
@@ -295,10 +295,10 @@ export const getSections = (refs) => {
             content: (
                 <div className="flex flex-col items-center w-full relative z-[2] mt-24 sm:mt-28 md:mt-32 lg:mt-40">
                     <div className="flex flex-col md:flex-row flex-wrap md:flex-nowrap w-full gap-4 sm:gap-6 md:gap-8 justify-evenly items-center px-4">
-                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop" name="VIKRANT SINGH RATHORE" role="EVENTS HEAD" size="small" />
-                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?q=80&w=400&auto=format&fit=crop" name="RAGHAV PATHAK" role="EVENTS HEAD" size="small" />
-                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?q=80&w=400&auto=format&fit=crop" name="PARTH GOYAL" role="EVENTS HEAD" size="small" />
-                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?q=80&w=400&auto=format&fit=crop" name="TAVISHI VERMA" role="EVENTS HEAD" size="small" />
+                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop" name="VIKRANT SINGH RATHORE" role="EVENTS HEAD" size="small" theme="orange" />
+                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?q=80&w=400&auto=format&fit=crop" name="RAGHAV PATHAK" role="EVENTS HEAD" size="small" theme="orange" />
+                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?q=80&w=400&auto=format&fit=crop" name="PARTH GOYAL" role="EVENTS HEAD" size="small" theme="orange" />
+                        <PhotoCard imageUrl="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?q=80&w=400&auto=format&fit=crop" name="TAVISHI VERMA" role="EVENTS HEAD" size="small" theme="orange" />
                     </div>
                     <div className="mt-20 sm:mt-24 md:mt-28 lg:mt-32 text-center max-w-[90vw] px-4 mb-20">
                         <p className="font-sans font-normal text-[#3d1c10] text-[0.7rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1rem] xl:text-[1.1rem] 2xl:text-[1.2rem] tracking-[0.05em] uppercase leading-relaxed max-w-[1000px] mx-auto opacity-90">

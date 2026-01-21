@@ -5,8 +5,12 @@ import {
     instaIcon,
     mailIcon
 } from '../../assets/ourTeam'
+import purpleInsta from '../../assets/ourTeam/purple_insta.png'
+import purpleGmail from '../../assets/ourTeam/purple_gmail.png'
+import orangeInsta from '../../assets/ourTeam/yellow_insta.png'
+import orangeGmail from '../../assets/ourTeam/yellow_email.png'
 
-const PhotoCard = ({ imageUrl, name, role, size = "normal" }) => {
+const PhotoCard = ({ imageUrl, name, role, size = "normal", theme = "blue" }) => {
     const isSmall = size === "small";
     const cardRef = useRef(null);
     const [labelWidth, setLabelWidth] = useState('auto');
@@ -44,6 +48,27 @@ const PhotoCard = ({ imageUrl, name, role, size = "normal" }) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const getIcons = () => {
+        if (theme === 'orange') {
+            return { insta: orangeInsta, mail: orangeGmail };
+        } else if (theme === 'purple') {
+            return { insta: purpleInsta, mail: purpleGmail };
+        }
+        return { insta: instaIcon, mail: mailIcon };
+    };
+
+    const icons = getIcons();
+
+    const getLabelClass = () => {
+        const baseClass = isSmall ? 'label-pill-compact' : '';
+        if (theme === 'orange') {
+            return `label-pill-ticket-orange ${baseClass}`;
+        } else if (theme === 'purple') {
+            return `label-pill-ticket-purple ${baseClass}`;
+        }
+        return `label-pill-ticket ${baseClass}`;
+    };
+
     return (
         <div className="relative flex flex-col items-center">
             <div ref={cardRef} className={`relative flex items-center bg-white p-[1.5px] sm:p-[2px] md:p-[2.5px] rounded-[12px] sm:rounded-[15px] md:rounded-[18px] shadow-xl transform transition-transform hover:scale-105`}>
@@ -57,11 +82,11 @@ const PhotoCard = ({ imageUrl, name, role, size = "normal" }) => {
             {(name || role) && (
                 <div className={`absolute ${bottomClasses} flex items-center gap-0.5 sm:gap-1 md:gap-1.5 z-10`}>
                     <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
-                        <img src={instaIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Instagram" />
+                        <img src={icons.insta} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Instagram" />
                     </a>
 
                     <div
-                        className={`label-pill-ticket ${isSmall ? 'label-pill-compact' : ''}`}
+                        className={getLabelClass()}
                         style={{ width: labelWidth }}
                     >
                         <div className={`${nameTextSize} text-white font-semibold tracking-wider leading-[1.1] uppercase font-sans whitespace-nowrap`}>
@@ -73,7 +98,7 @@ const PhotoCard = ({ imageUrl, name, role, size = "normal" }) => {
                     </div>
 
                     <a href="#" className={`${iconWidthClasses} flex items-center justify-center transition-transform hover:scale-110`}>
-                        <img src={mailIcon} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Email" />
+                        <img src={icons.mail} className="max-w-full max-h-full object-contain drop-shadow-md" alt="Email" />
                     </a>
                 </div>
             )}

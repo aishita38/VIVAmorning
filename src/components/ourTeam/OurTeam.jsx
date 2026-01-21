@@ -83,7 +83,6 @@ function OurTeam() {
 
             const handMovement = getHandMovement();
 
-            // Left Hand: Moves specifically out to the left
             gsap.fromTo(
                 vogue1Ref.current,
                 { x: 0 },
@@ -100,7 +99,6 @@ function OurTeam() {
             );
 
 
-            // Right Hand: Moves specifically out to the right
             gsap.fromTo(
                 vogue2Ref.current,
                 { x: 0 },
@@ -303,38 +301,60 @@ function OurTeam() {
 
         ScrollTrigger.create({
             trigger: section2Ref.current,
-            start: "top 50%",
+            start: "top 70%",
             onToggle: self => {
-                gsap.to(bgBlueRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.8, ease: "power2.inOut" });
+                gsap.to(bgBlueRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.4, ease: "power2.inOut" });
             }
         });
 
 
         ScrollTrigger.create({
             trigger: section3Ref.current,
-            start: "top 50%",
+            start: "top 70%",
             onToggle: self => {
-                gsap.to(bgPurpleRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.8, ease: "power2.inOut" });
+                gsap.to(bgPurpleRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.4, ease: "power2.inOut" });
             }
         });
 
 
         ScrollTrigger.create({
             trigger: section4Ref.current,
-            start: "top 50%",
+            start: "top 70%",
             endTrigger: section5Ref.current,
             end: "bottom 50%",
             onToggle: self => {
-                gsap.to(bgSponsorRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.8, ease: "power2.inOut" });
+                gsap.to(bgSponsorRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.4, ease: "power2.inOut" });
             }
         });
 
 
         ScrollTrigger.create({
             trigger: section7Ref.current,
-            start: "top 50%",
+            start: "top 70%",
             onToggle: self => {
-                gsap.to(bgPurpleRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.8, ease: "power2.inOut" });
+                gsap.to(bgPurpleRef.current, { opacity: self.isActive ? 1 : 0, duration: 0.4, ease: "power2.inOut" });
+            }
+        });
+
+        ScrollTrigger.create({
+            trigger: section6Ref.current,
+            start: "top 70%",
+            onToggle: self => {
+                if (self.isActive) {
+                    gsap.to(bgPurpleRef.current, { opacity: 0, duration: 0.4, ease: "power2.inOut" });
+                    gsap.to(bgBlueRef.current, { opacity: 0, duration: 0.4, ease: "power2.inOut" });
+                }
+            }
+        });
+
+        ScrollTrigger.create({
+            trigger: section8Ref.current,
+            start: "top 70%",
+            onToggle: self => {
+                if (self.isActive) {
+                    gsap.to(bgPurpleRef.current, { opacity: 0, duration: 0.4, ease: "power2.inOut" });
+                    gsap.to(bgBlueRef.current, { opacity: 0, duration: 0.4, ease: "power2.inOut" });
+                }
             }
         });
 

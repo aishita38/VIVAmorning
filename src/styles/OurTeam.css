@@ -448,6 +448,125 @@ html {
         }
     }
 
+    .label-pill-ticket-orange {
+        background-color: #ff8c42;
+        border-radius: 60px;
+        position: relative;
+        padding: 0.4rem 0.7rem 0.3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        border: none;
+        width: 210px;
+        gap: 1px;
+    }
+
+    .label-pill-ticket-orange::before,
+    .label-pill-ticket-orange::after {
+        content: '';
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        height: 4px;
+        background-image: radial-gradient(circle, white 1.2px, transparent 1.5px);
+        background-size: 7px 4px;
+        background-repeat: repeat-x;
+    }
+
+    .label-pill-ticket-orange::before {
+        top: 3px;
+    }
+
+    .label-pill-ticket-orange::after {
+        bottom: 3px;
+    }
+
+    @media (min-width: 640px) {
+        .label-pill-ticket-orange {
+            width: 240px;
+            padding: 0.5rem 0.8rem 0.4rem;
+        }
+
+        .label-pill-ticket-orange::before,
+        .label-pill-ticket-orange::after {
+            left: 16px;
+            right: 16px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .label-pill-ticket-orange {
+            width: 250px;
+            padding: 0.55rem 0.85rem 0.45rem;
+        }
+
+        .label-pill-ticket-orange::before,
+        .label-pill-ticket-orange::after {
+            left: 18px;
+            right: 18px;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .label-pill-ticket-orange {
+            width: 280px;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        .label-pill-ticket-orange {
+            width: 20vw;
+        }
+    }
+
+    @media (min-width: 1536px) {
+        .label-pill-ticket-orange {
+            width: 24vw;
+        }
+    }
+
+    .label-pill-ticket-orange.label-pill-compact {
+        width: 175px;
+        padding: 0.35rem 0.6rem 0.25rem !important;
+    }
+
+    @media (min-width: 640px) {
+        .label-pill-ticket-orange.label-pill-compact {
+            width: 200px;
+            padding: 0.4rem 0.7rem 0.3rem !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .label-pill-ticket-orange.label-pill-compact {
+            width: 210px;
+            padding: 0.45rem 0.75rem 0.35rem !important;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .label-pill-ticket-orange.label-pill-compact {
+            width: 230px;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        .label-pill-ticket-orange.label-pill-compact {
+            width: 16vw !important;
+            padding: 0.45rem 0.7rem 0.35rem !important;
+        }
+    }
+
+    @media (min-width: 1536px) {
+        .label-pill-ticket-orange.label-pill-compact {
+            width: 13vw !important;
+            padding: 0.5rem 0.75rem 0.4rem !important;
+        }
+    }
+
+
     body.hide-frame-bottom::after {
         border-bottom-width: 0 !important;
         border-bottom-left-radius: 0 !important;
