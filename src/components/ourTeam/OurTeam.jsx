@@ -360,21 +360,30 @@ function OurTeam() {
 
         ScrollTrigger.create({
             trigger: section4Ref.current,
-            start: "top center",
-            end: "bottom center",
-            onToggle: self => {
-                if (self.isActive) document.body.classList.add('hide-frame-bottom');
-                else document.body.classList.remove('hide-frame-bottom');
-            }
+            start: "top bottom",
+            end: "top center",
+            onEnter: () => document.body.classList.add('hide-frame-bottom'),
+            onLeaveBack: () => document.body.classList.remove('hide-frame-bottom')
         });
 
         ScrollTrigger.create({
             trigger: section5Ref.current,
             start: "top center",
             end: "bottom center",
-            onToggle: self => {
-                if (self.isActive) document.body.classList.add('hide-frame-top');
-                else document.body.classList.remove('hide-frame-top');
+            onEnter: () => {
+                document.body.classList.remove('hide-frame-bottom');
+                document.body.classList.add('hide-frame-top');
+            },
+            onLeave: () => {
+                document.body.classList.remove('hide-frame-top');
+            },
+            onEnterBack: () => {
+                document.body.classList.remove('hide-frame-bottom');
+                document.body.classList.add('hide-frame-top');
+            },
+            onLeaveBack: () => {
+                document.body.classList.remove('hide-frame-top');
+                document.body.classList.add('hide-frame-bottom');
             }
         });
 
