@@ -1,23 +1,25 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import vivaLogo from './assets/viva-logo.png'
-import mentorsBanner from './assets/mentors.png'
-import festheadBanner from './assets/festhead.png'
-import leftBorder from './assets/left-border.png'
-import rightBorder from './assets/right-border.png'
-import lantern from './assets/lantern.png'
-import vogue1 from './assets/vogue 1.png'
-import vogue2 from './assets/vogue 2.png'
-import rickshaw from './assets/rickshaw.png'
-import culturalSign from './assets/cultural.png'
-import memberImage from './assets/image 330.png'
-import instaIcon from './assets/instagram.png'
-import mailIcon from './assets/email.png'
-import sponsorBanner from './assets/sponsor.png'
-import developmentBanner from './assets/development.png'
-import creativeBanner from './assets/creative.png'
-import prEventsBanner from './assets/pr_events.png'
+import {
+    vivaLogo,
+    mentorsBanner,
+    festheadBanner,
+    leftBorder,
+    rightBorder,
+    lantern,
+    vogue1,
+    vogue2,
+    rickshaw,
+    culturalSign,
+    memberImage,
+    instaIcon,
+    mailIcon,
+    sponsorBanner,
+    developmentBanner,
+    creativeBanner,
+    prEventsBanner
+} from './assets/ourTeam'
 
 gsap.registerPlugin(ScrollTrigger)
 
